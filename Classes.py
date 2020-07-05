@@ -1,6 +1,5 @@
 import random
 
-
 class Game:
     """Class for Pokémon games."""
 
@@ -27,7 +26,7 @@ class Game:
 class Region:
     """Class for regions in the Pokémon world."""
 
-    def __init__(self, name, gen, towns, rival, landmarks):
+    def __init__(self, name, gen, towns, rival, landmarks, professor):
         # Validate given parameters
         if type(name) is not str:
             raise TypeError('Region name must be string')
@@ -45,6 +44,8 @@ class Region:
         for landmark in landmarks:
             if type(landmark) is not str:
                 raise TypeError('Landmark names must be strings')
+        if type(professor) is not str:
+            raise TypeError('Professor name must be string')
 
         # Initialize object variables
         self.name = name
@@ -52,6 +53,7 @@ class Region:
         self.towns = towns
         self.rival = rival
         self.landmarks = landmarks
+        self.professor = professor
 
 class Town:
     """Class for towns in the Pokémon world."""
@@ -111,8 +113,16 @@ class Pokemon:
         self.gen_introduced = gen_introduced
 
 
+class LeaderQuestion:
+    """Class for Gym Leader questions."""
 
+    def __init__(self):
+        types = {1 : "What is the name of the Gym Leader of {}?",
+                 2 : "What is the name of the town where Gym Leader {}'s Gym is?",
+                 3 : "What is the Type specialty of Gym Leader {}?",
+                 4 : "What is the name of the Badge of Gym Leader {}?"}
+        n = random.randint(range(len(types)))
 
-# START OF PROGRAM
-print("Welcome to PokeQuiz!")
-geodude = Pokemon("geodude", False, ["Graveler"], "1")
+        #Initialize object variables
+        self.type =  n
+        self.Q = types[n]
