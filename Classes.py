@@ -75,19 +75,22 @@ class Town:
 class Leader:
     """Class for Gym Leaders in the Pokémon world."""
 
-    def __init__(self, name, town, type):
+    def __init__(self, name, town, specialty, badge):
         # Validate given parameters
         if type(name) is not str:
             raise TypeError('Leader name must be string')
         if type(town) is not str:
             raise TypeError('Town must be string')
-        if type(type) is not str:
-            raise TypeError('Type must be string')
+        if type(specialty) is not str:
+            raise TypeError('Type specialty must be string')
+        if type(badge) is not str:
+            raise TypeError('Badge name must be string')
 
         # Initialize object variables
         self.name = name
         self.town = town
-        self.type = type
+        self.specialty = specialty
+        self.badge = badge
 
 class Pokemon:
     """Class for Pokémon."""
@@ -112,7 +115,6 @@ class Pokemon:
         self.evolution = evolution
         self.gen_introduced = gen_introduced
 
-
 class LeaderQuestion:
     """Class for Gym Leader questions."""
 
@@ -123,6 +125,46 @@ class LeaderQuestion:
                  4 : "What is the name of the Badge of Gym Leader {}?"}
         n = random.randint(range(len(types)))
 
-        #Initialize object variables
+        # Initialize object variables
         self.type =  n
         self.Q = types[n]
+        self.A = None
+
+class TownQuestion:
+    """Class for Town questions."""
+
+    def __init__(self):
+        types = {1 : "What region is {} in?"}
+        n = random.randint(range(len(types)))
+
+        # Initialize object variables
+        self.type = n
+        self.Q = types[n]
+        self.A = None
+
+class PokemonQuestion:
+    """Class for Pokemon questions."""
+
+    def __init__(self):
+        types = {1 : "What is the evolution of {}?",
+                 2 : "In what generation was {} introduced?"}
+        n = random.randint(range(len(types)))
+
+        # Initialize object variables
+        self.type = n
+        self.Q = types[n]
+        self.A = None
+
+class TeamQuestion:
+    """Class for Team questions."""
+
+    def __init__(self):
+        types = {1 : "{} is the enemy team in what region?",
+                 2 : "The leader of {} is who?",
+                 3 : "{} is the leader of what enemy team?"}
+        n = random.randint(range(len(types)))
+
+        # Initialize object variables
+        self.type = n
+        self.Q = types[n]
+        self.A = None
