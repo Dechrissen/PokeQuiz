@@ -3,7 +3,7 @@ import random
 class Game:
     """Class for Pokémon games."""
 
-    def __init__(self, name, region, gen, team, champion):
+    def __init__(self, name, region, gen, rivals, team, champion):
         # Validate given parameters
         if type(name) is not str:
             raise TypeError('Game name must be string')
@@ -11,6 +11,11 @@ class Game:
             raise TypeError('Region must be string')
         if type(gen) is not str:
             raise TypeError('Gen must be string')
+        if type(rivals) is not list:
+            raise TypeError('rivals must be list')
+        for rival in rivals:
+            if type(town) is not str:
+                raise TypeError('Rival names must be strings')
         if type(team) is not str:
             raise TypeError('Team must be string')
         if type(champion) is not str:
@@ -20,13 +25,14 @@ class Game:
         self.name = name
         self.region = region
         self.gen = gen
+        self.rivals = rivals
         self.team = team
         self.champion = champion
 
 class Region:
     """Class for regions in the Pokémon world."""
 
-    def __init__(self, name, gen, towns, rival, landmarks, professor):
+    def __init__(self, name, gen, towns, landmarks, professor):
         # Validate given parameters
         if type(name) is not str:
             raise TypeError('Region name must be string')
@@ -37,8 +43,6 @@ class Region:
         for town in towns:
             if type(town) is not str:
                 raise TypeError('Town names must be strings')
-        if type(rival) is not str:
-            raise TypeError('Rival name must be string')
         if type(landmarks) is not list:
             raise TypeError('landmarks must be list')
         for landmark in landmarks:
@@ -51,7 +55,6 @@ class Region:
         self.name = name
         self.gen = gen
         self.towns = towns
-        self.rival = rival
         self.landmarks = landmarks
         self.professor = professor
 
@@ -91,6 +94,24 @@ class Leader:
         self.town = town
         self.specialty = specialty
         self.badge = badge
+
+class Team:
+    """Class for Teams of the Pokémon world."""
+
+    def __init__(self, name, boss, region):
+        # Validate given parameters
+        if type(name) is not str:
+            raise TypeError('Team name must be string')
+        if type(boss) is not str:
+            raise TypeError('Boss name must be string')
+        if type(region) is not str:
+            raise TypeError('Region name must be string')
+
+        # Initialize object variables
+        self.name = name
+        self.boss = boss
+        self.region = region
+
 
 class Pokemon:
     """Class for Pokémon."""
@@ -160,8 +181,36 @@ class TeamQuestion:
 
     def __init__(self):
         types = {1 : "{} is the enemy team in what region?",
-                 2 : "The leader of {} is who?",
-                 3 : "{} is the leader of what enemy team?"}
+                 2 : "Who is the boss of {}?",
+                 3 : "{} is the boss of what enemy team?"}
+        n = random.randint(1, 3)
+
+        # Initialize object variables
+        self.type = n
+        self.Q = types[n]
+        self.A = None
+
+class RegionQuestion:
+    """Class for Region questions."""
+
+    def __init__(self):
+        types = {1 : "{} is located in what region?",
+                 2 : "Who is the professor in {}?",
+                 3 : "In what generation was {} introduced?",
+                 4 : "{} is a town in what region?"}
+        n = random.randint(range(len(types)))
+
+        # Initialize object variables
+        self.type = n
+        self.Q = types[n]
+        self.A = None
+
+class GameQuestion:
+    """Class for Game questions."""
+
+    def __init__(self):
+        types = {1 : "Who is the Champion in {}?",
+                 2 : "Who is a rival in {}?"}
         n = random.randint(range(len(types)))
 
         # Initialize object variables
