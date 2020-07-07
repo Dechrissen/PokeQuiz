@@ -125,7 +125,7 @@ class Team:
 class Pokemon:
     """Class for Pokémon."""
 
-    def __init__(self, name, preevo, types, gen):
+    def __init__(self, name, preevo, type1, type2, gen):
         # Validate given parameters
         if type(name) is not str:
             raise TypeError('Leader name must be string')
@@ -133,14 +133,17 @@ class Pokemon:
             raise TypeError('Pre-evolution must be str or None')
         if type(gen) is not str:
             raise TypeError('Gen must be string')
-        if type(types) is not list or len(types) > 2:
-            raise TypeError('Types must be list and not greater than length 2')
+        if type(type1) is not str:
+            raise TypeError('Type 1 must be str')
+        if type(type2) is not str and type2 is not None:
+            raise TypeError('Type 2 must be str or None')
 
         # Initialize object variables
         self.name = name
         self.preevo = preevo
+        self.type1 = type1
+        self.type2 = type2
         self.gen = gen
-        self.types = types
 
 class LeaderQuestion:
     """Class for Gym Leader questions."""
@@ -175,7 +178,8 @@ class PokemonQuestion:
     def __init__(self):
         types = {1 : "What is the evolution of {}?",
                  2 : "In what generation was {} introduced?",
-                 3 : "What evolves into {}?"}
+                 3 : "What evolves into {}?",
+                 4 : "What is {}'s type? (space separated if there are two)"}
         n = random.randint(range(len(types)))
 
         # Initialize object variables
