@@ -15,11 +15,17 @@ def getQuestion():
         pokemon = randomPokemon()
         # "What is the evolution of {}?"
         if question.type == 1:
-            pass # do thing for pokemon question type 1
+            # Do not ask this question when the Pokemon is from a branched evolution line (i.e. return getQuestion() again)
+            question.Q = question.Q.format(pokemon.preevo)
+            question.A = question.A.format(pokemon.name)
         # "In what generation was {} introduced?"
         elif question.type == 2:
             question.Q = question.Q.format(pokemon.name)
             question.A = pokemon.gen
+        # "What evolves into {}?"
+        elif question.type == 3:
+            question.Q = question.Q.format(pokemon.name)
+            question.A = pokemon.preevo
 
     # LeaderQuestion
     elif selection == 2:
