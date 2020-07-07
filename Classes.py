@@ -61,7 +61,7 @@ class Region:
 class Town:
     """Class for towns in the Pokémon world."""
 
-    def __init__(self, name, region, leader):
+    def __init__(self, name, region, leader, gen):
         # Validate given parameters
         if type(name) is not str:
             raise TypeError('Town name must be string')
@@ -69,16 +69,19 @@ class Town:
             raise TypeError('Region must be string')
         if type(leader) is not str:
             raise TypeError('Leader must be string')
+        if type(gen) is not str:
+            raise TypeError('Gen must be string')
 
         # Initialize object variables
         self.name = name
         self.region = region
         self.leader = leader
+        self.gen = gen
 
 class Leader:
     """Class for Gym Leaders in the Pokémon world."""
 
-    def __init__(self, name, town, specialty, badge):
+    def __init__(self, name, town, specialty, badge, gen):
         # Validate given parameters
         if type(name) is not str:
             raise TypeError('Leader name must be string')
@@ -88,17 +91,20 @@ class Leader:
             raise TypeError('Type specialty must be string')
         if type(badge) is not str:
             raise TypeError('Badge name must be string')
+        if type(gen) is not str:
+            raise TypeError('Gen must be string')
 
         # Initialize object variables
         self.name = name
         self.town = town
         self.specialty = specialty
         self.badge = badge
+        self.gen = gen
 
 class Team:
     """Class for Teams of the Pokémon world."""
 
-    def __init__(self, name, boss, region):
+    def __init__(self, name, boss, region, gen):
         # Validate given parameters
         if type(name) is not str:
             raise TypeError('Team name must be string')
@@ -106,35 +112,32 @@ class Team:
             raise TypeError('Boss name must be string')
         if type(region) is not str:
             raise TypeError('Region name must be string')
+        if type(gen) is not str:
+            raise TypeError('Gen must be string')
 
         # Initialize object variables
         self.name = name
         self.boss = boss
         self.region = region
+        self.gen = gen
 
 
 class Pokemon:
     """Class for Pokémon."""
 
-    def __init__(self, name, final_stage, evolution, gen_introduced):
+    def __init__(self, name, preevo, gen):
         # Validate given parameters
         if type(name) is not str:
             raise TypeError('Leader name must be string')
-        if type(final_stage) is not bool:
-            raise TypeError('Final stage must be boolean')
-        if type(evolution) is not list and evolution is not None:
-            raise TypeError('Evolution must be list or None')
-        for evo in evolution:
-            if type(evo) is not str:
-                raise TypeError('Evolutions must be strings')
-        if type(gen_introduced) is not str:
-            raise TypeError('Gen introduced must be string')
+        if type(preevo) is not str and preevo is not None:
+            raise TypeError('Pre-evolution must be str or None')
+        if type(gen) is not str:
+            raise TypeError('Gen must be string')
 
         # Initialize object variables
         self.name = name
-        self.final_stage = final_stage
-        self.evolution = evolution
-        self.gen_introduced = gen_introduced
+        self.preevo = preevo
+        self.gen = gen
 
 class LeaderQuestion:
     """Class for Gym Leader questions."""

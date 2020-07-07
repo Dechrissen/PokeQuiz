@@ -19,7 +19,7 @@ def getQuestion():
         # "In what generation was {} introduced?"
         elif question.type == 2:
             question.Q = question.Q.format(pokemon.name)
-            question.A = pokemon.gen_introduced
+            question.A = pokemon.gen
 
     # LeaderQuestion
     elif selection == 2:
