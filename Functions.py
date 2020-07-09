@@ -4,6 +4,10 @@ def getQuestion():
     categories = 6 # (Pokemon, Leader, Town, Team, Region, Game)
     # selection = random.randint(1, categories)
     selection = 4 #team question
+    # Pokemon which are among the branched evolutions
+    branches = ['vileplume', 'bellossom', 'poliwrath', 'politoed', 'slowbro', 'slowking', 'vaporeon', 'jolteon', 'flareon', 'espeon', 'umbreon',
+                'leafeon', 'glaceon', 'sylveon', 'hitmonlee', 'hitmonchan', 'hitmontop', 'silcoon', 'cascoon', 'gardevoir', 'gallade', 'ninjask',
+                'shedinja', 'glalie', 'froslass', 'huntail', 'gorebyss', 'wormadam', 'mothim', 'solgaleo', 'lunala', 'flapple', 'appletun']
 
     # PokemonQuestion
     if selection == 1:
@@ -124,7 +128,7 @@ def randomLeader():
 
 def randomTeam():
     """Creates and returns a random Team object."""
-    conn = sqlite3.connect(db, detect_types=sqlite3.PARSE_DECLTYPES) # this line is to auot-detect and convert None type for Python
+    conn = sqlite3.connect(db, detect_types=sqlite3.PARSE_DECLTYPES) # this line is to auto-detect and convert None type for Python
     cur = conn.cursor()
     cur.execute('SELECT * FROM teams ORDER BY RANDOM() LIMIT 1;')
     for row in cur:

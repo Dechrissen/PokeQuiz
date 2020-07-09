@@ -3,7 +3,7 @@ import random
 class Game:
     """Class for Pokémon games."""
 
-    def __init__(self, name, region, gen, rivals, team, champion):
+    def __init__(self, name, region, gen, rivals, champion):
         # Validate given parameters
         if type(name) is not str:
             raise TypeError('Game name must be string')
@@ -14,10 +14,8 @@ class Game:
         if type(rivals) is not list:
             raise TypeError('rivals must be list')
         for rival in rivals:
-            if type(town) is not str:
+            if type(rival) is not str:
                 raise TypeError('Rival names must be strings')
-        if type(team) is not str:
-            raise TypeError('Team must be string')
         if type(champion) is not str:
             raise TypeError('Champion must be string')
 
@@ -26,7 +24,6 @@ class Game:
         self.region = region
         self.gen = gen
         self.rivals = rivals
-        self.team = team
         self.champion = champion
 
 class Region:
@@ -61,21 +58,21 @@ class Region:
 class Town:
     """Class for towns in the Pokémon world."""
 
-    def __init__(self, name, region, leader, gen):
+    def __init__(self, name, region, leaders, gen):
         # Validate given parameters
         if type(name) is not str:
             raise TypeError('Town name must be string')
         if type(region) is not str:
             raise TypeError('Region must be string')
-        if type(leader) is not str:
-            raise TypeError('Leader must be string')
+        if type(leaders) is not list and leaders is not None:
+            raise TypeError('Leaders must be list or None')
         if type(gen) is not str:
             raise TypeError('Gen must be string')
 
         # Initialize object variables
         self.name = name
         self.region = region
-        self.leader = leader
+        self.leaders = leaders
         self.gen = gen
 
 class Leader:
@@ -125,24 +122,24 @@ class Team:
 class Pokemon:
     """Class for Pokémon."""
 
-    def __init__(self, name, preevo, type1, type2, gen):
+    def __init__(self, name, preevo, types, gen):
         # Validate given parameters
         if type(name) is not str:
             raise TypeError('Leader name must be string')
         if type(preevo) is not str and preevo is not None:
             raise TypeError('Pre-evolution must be str or None')
+        if type(types) is not list:
+            raise TypeError('types must be list')
+        for type in types:
+            if type(type) is not str:
+                raise TypeError('Types must be strings')
         if type(gen) is not str:
             raise TypeError('Gen must be string')
-        if type(type1) is not str:
-            raise TypeError('Type 1 must be str')
-        if type(type2) is not str and type2 is not None:
-            raise TypeError('Type 2 must be str or None')
 
         # Initialize object variables
         self.name = name
         self.preevo = preevo
-        self.type1 = type1
-        self.type2 = type2
+        self.types = types
         self.gen = gen
 
 class LeaderQuestion:
