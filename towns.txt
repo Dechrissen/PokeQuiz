@@ -1,0 +1,131 @@
+1
+Pallet Town
+Viridian City
+Pewter City
+Cerulean City
+Vermilion City
+Lavender Town
+Celadon City
+Fuchsia City
+Saffron City
+Cinnabar Island
+
+Cerulean Cave
+Diglett's Cave
+Indigo Plateau
+Mt. Moon
+Pokemon Mansion
+Pokemon Tower
+Rock Tunnel
+Safari Zone
+Seafoam Islands
+Silph Co.
+Victory Road
+Viridian Forest
+
+
+2
+New Bark Town
+Cherrygrove City
+Violet City
+Azalea Town
+Goldenrod City
+Ecruteak City
+Olivine City
+Cianwood City
+Mahogany Town
+Blackthorn City
+
+Dark Cave • Sprout Tower • Ruins of Alph • Union Cave • Ilex Forest • Radio Tower •
+ • National Park • Tin Tower • Bellchime Trail • Burned Tower • Moomoo Farm • Glitter Lighthouse  • Whirl Islands
+Mt. Mortar • Lake of Rage  • Ice Path • Dragon's Den  • Mt. Silver
+
+
+3
+Littleroot Town
+Oldale Town
+Petalburg City
+Rustboro City
+Dewford Town
+Slateport City
+Mauville City
+Verdanturf Town
+Fallarbor Town
+Lavaridge Town
+Fortree City
+Lilycove City
+Mossdeep City
+Sootopolis City
+Pacifidlog Town
+Ever Grande City
+
+
+4
+Twinleaf Town
+Sandgem Town
+Jubilife City
+Oreburgh City
+Floaroma Town
+Eterna City
+Hearthome City
+Solaceon Town
+Veilstone City
+Pastoria City
+Celestic Town
+Canalave City
+Snowpoint City
+Sunyshore City
+
+
+5
+Accumula Town
+Anville Town
+Aspertia City
+Black City
+Castelia City
+Driftveil City
+Floccesy Town
+Humilau City
+Icirrus City
+Lacunosa Town
+Lentimas Town
+Mistralton City
+Nacrene City
+Nimbasa City
+Nuvema Town
+Opelucid City
+Striaton City
+Undella Town
+Virbank City
+White Forest
+
+
+6
+Ambrette Town
+Anistar City
+Aquacorde Town
+Camphrier Town
+Coumarine City
+Couriway Town
+Cyllage City
+Dendemille Town
+Geosenge Town
+Kiloude City
+Laverre City
+Lumiose City
+Santalune City
+Shalour City
+Snowbelle City
+Vaniville Town
+
+
+7
+Hau'oli City
+Heahea City
+Iki Town
+Konikoni City
+Malie City
+Paniola Town
+Po Town
+Seafolk Village
+Tapu Village

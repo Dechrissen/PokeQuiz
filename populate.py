@@ -22,7 +22,7 @@ def fillPokemon():
     'User-Agent': 'dechrissen'
     }
 
-    for n in range(290, 295 + 1):
+    for n in range(300, 305 + 1):
         # Get species JSON
         try:
             req = urllib.request.Request(url.format(str(n)), headers=hdr)
@@ -62,10 +62,22 @@ def fillPokemon():
             type2 = types[1]
         except IndexError:
             type2 = None
-        print(name, preevo, type1, type2, gen)
+        # create types list
+        if type2:
+            types = [type1, type2]
+        else:
+            types = [type1]
+        # stringify types list
+        types = json.dumps(types)
+        # insert Pokemon data into table
+        cur.execute('DROP TABLE IF EXISTS pokemon')
+        cur.execute('CREATE TABLE pokemon (name TEXT, preevo TEXT, types TEXT, gen TEXT)')
+        cur.execute('INSERT INTO pokemon (name, preevo, types, gen) VALUES (?, ?, ?, ?)')
         print("Wrote", n, "to database")
+    print("Done")
 
 def fillTeams():
+    print("Starting team table fill...")
     # Create Teams table
     teams = ['Team Rocket', 'Team Magma', 'Team Aqua', 'Team Galactic', 'Team Plasma', 'Team Flare', 'Team Skull', 'Aether Foundation', 'Team Yell']
     bosses = ['Giovanni', 'Maxie', 'Archie', 'Cyrus', 'N', 'Lysandre', 'Guzma', 'Lusamine', 'Piers']
@@ -98,7 +110,15 @@ def fillGames():
     cur.execute('CREATE TABLE games (name TEXT, region TEXT, gen TEXT, rivals TEXT, champion TEXT)')
     for i in games.keys():
         cur.execute('INSERT INTO games (name, region, gen, rivals, champion) VALUES (?, ?, ?, ?, ?)', (games[i][0], games[i][1], games[i][2], json.dumps(games[i][3]), games[i][4]))
+    print("Done")
 
+def fillRegions():
+    regions = {1 : ['Kanto', '1', ['Pallet Town','Viridian City','Pewter City','Cerulean City','Vermilion City','Lavender Town','Celadon City','Fuchsia City','Saffron City','Cinnabar Island'],
+                ["Cerulean Cave","Diglett's Cave",'Indigo Plateau','Mt. Moon','Pokemon Mansion','Pokemon Tower','Rock Tunnel','Safari Zone','Seafoam Islands','Silph Co.','Victory Road','Viridian Forest'],
+                'Oak'],
+               2 : ['Johto', '2', ["New Bark Town","Cherrygrove City","Violet City","Azalea Town","Goldenrod City","Ecruteak City","Olivine City","Cianwood City","Mahogany Town","Blackthorn City"],
+               ["Dark Cave", "Sprout Tower", "Ruins of Alph", "Union Cave", "Ilex Forest", "Radio Tower","National Park", "Tin Tower", "Bellchime Trail", "Burned Tower", "Moomoo Farm", "Glitter Lighthouse", "Whirl Islands", "Mt. Mortar", "Lake of Rage", "Ice Path", "Dragon's Den", "Mt. Silver"],
+               'Elm'}
 
 # Start database population / API scraping
 # Open connection to sqlite file
@@ -106,9 +126,9 @@ conn = sqlite3.connect('pokequiz.sqlite')
 cur = conn.cursor()
 
 # Uncomment functions below to fill corresponding tables
-#fillPokemon()
+fillPokemon()
 #fillTeams()
-fillGames()
+#fillGames()
 
 # Commit additions and close connection
 conn.commit()

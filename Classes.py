@@ -29,7 +29,7 @@ class Game:
 class Region:
     """Class for regions in the Pokémon world."""
 
-    def __init__(self, name, gen, towns, landmarks, professor):
+    def __init__(self, name, gen, towns, destinations, professor):
         # Validate given parameters
         if type(name) is not str:
             raise TypeError('Region name must be string')
@@ -40,11 +40,11 @@ class Region:
         for town in towns:
             if type(town) is not str:
                 raise TypeError('Town names must be strings')
-        if type(landmarks) is not list:
-            raise TypeError('landmarks must be list')
-        for landmark in landmarks:
-            if type(landmark) is not str:
-                raise TypeError('Landmark names must be strings')
+        if type(destinations) is not list:
+            raise TypeError('destinations must be list')
+        for destination in destinations:
+            if type(destination) is not str:
+                raise TypeError('Destination names must be strings')
         if type(professor) is not str:
             raise TypeError('Professor name must be string')
 
@@ -52,7 +52,7 @@ class Region:
         self.name = name
         self.gen = gen
         self.towns = towns
-        self.landmarks = landmarks
+        self.destinations = destinations
         self.professor = professor
 
 class Town:
