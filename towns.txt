@@ -59,73 +59,70 @@ Sootopolis City
 Pacifidlog Town
 Ever Grande City
 
+Petalburg Woods • Rusturf Tunnel • Island Cave • Granite Cave • Abandoned Ship • Sea Mauville • Oceanic Museum
+Seaside Cycling Road • Trick House  • New Mauville • Trainer Hill • Desert Ruins • Mirage Tower • Fiery Path
+Jagged Pass • Mt. Chimney • Desert Underpass • Meteor Falls • Weather Institute • Scorched Slab • Ancient Tomb • Route 121 Safari Zone • Mt. Pyre
+Lilycove Museum • Shoal Cave • Space Center • Seafloor Cavern
+Cave of Origin • Mirage Island • Sky Pillar • Sealed Chamber • Artisan Cave • Altering Cave • Southern Island • Marine Cave • Terra Cave
+
 
 4
-Twinleaf Town
-Sandgem Town
-Jubilife City
-Oreburgh City
-Floaroma Town
-Eterna City
-Hearthome City
-Solaceon Town
-Veilstone City
-Pastoria City
-Celestic Town
-Canalave City
-Snowpoint City
-Sunyshore City
+"Twinleaf Town",
+"Sandgem Town",
+"Jubilife City",
+"Oreburgh City",
+"Floaroma Town",
+"Eterna City",
+"Hearthome City",
+"Solaceon Town",
+"Veilstone City",
+"Pastoria City",
+"Celestic Town",
+"Canalave City",
+"Snowpoint City",
+"Sunyshore City"
+
+"Lake Verity", "Oreburgh Gate", "Oreburgh Mine", "Ravaged Path",
+"Floaroma Meadow", "Valley Windworks", "Eterna Forest", "Old Chateau", "Wayward Cave", "Mt. Coronet",
+"Amity Square", "Lost Tower", "Hallowed Tower", "Solaceon Ruins", "Maniac Tunnel", "Lake Valor", "Great Marsh", "Trophy Garden", "Fuego Ironworks",
+"Iron Island", "Lake Acuity", "Spear Pillar",
+"Resort Area", "Fight Area", "Survival Area", "Stark Mountain", "Snowpoint Temple",
+"Spring Path", "Sendoff Spring", "Turnback Cave", "Fullmoon Island", "Newmoon Island", "Seabreak Path", "Flower Paradise", "Hall of Origin"
 
 
 5
-Accumula Town
-Anville Town
-Aspertia City
-Black City
-Castelia City
-Driftveil City
-Floccesy Town
-Humilau City
-Icirrus City
-Lacunosa Town
-Lentimas Town
-Mistralton City
-Nacrene City
-Nimbasa City
-Nuvema Town
-Opelucid City
-Striaton City
-Undella Town
-Virbank City
-White Forest
+"Accumula Town","Anville Town","Aspertia City","Black City","Castelia City","Driftveil City","Floccesy Town",
+"Humilau City","Icirrus City","Lacunosa Town","Lentimas Town","Mistralton City","Nacrene City","Nimbasa City",
+"Nuvema Town","Opelucid City","Striaton City","Undella Town","Virbank City","White Forest"
+
+"Dreamyard", "Wellspring Cave", "Pinwheel Forest", "Liberty Garden", "Desert Resort", "Relic Castle", "Battle Subway", "Lostlorn Forest",
+"Cold Storage", "Mistralton Cave", "Chargestone Cave", "Celestial Tower", "Twist Mountain", "Dragonspiral Tower", "Moor of Icirrus",
+"Challenger's Cave", "N's Castle", "Royal Unova", "Giant Chasm", "Undella Bay", "Abyssal Ruins",
+"Abundant Shrine", "P2 Laboratory", "Entralink", "Unity Tower", "Floccesy Ranch", "Pledge Grove", "Virbank Complex",
+"Pokestar Studios", "Castelia Sewers", "Join Avenue", "Cave of Being", "Pokemon World Tournament", "Reversal Mountain", "Plasma Frigate",
+"Clay Tunnel", "Underground Ruins", "Strange House", "Relic Passage", "Seaside Cave", "White Treehollow", "Black Tower" Skyarrow Bridge •
+Driftveil Drawbridge • Tubeline Bridge • Village Bridge • Marvelous Bridge • Marine Tube
 
 
 6
-Ambrette Town
-Anistar City
-Aquacorde Town
-Camphrier Town
-Coumarine City
-Couriway Town
-Cyllage City
-Dendemille Town
-Geosenge Town
-Kiloude City
-Laverre City
-Lumiose City
-Santalune City
-Shalour City
-Snowbelle City
-Vaniville Town
+"Ambrette Town","Anistar City","Aquacorde Town","Camphrier Town","Coumarine City","Couriway Town","Cyllage City","Dendemille Town",
+"Geosenge Town","Kiloude City","Laverre City","Lumiose City","Santalune City","Shalour City","Snowbelle City","Vaniville Town"
+
+"Santalune Forest", "Chamber of Emptiness", "Parfum Palace", "Battle Chateau", "Connecting Cave", "Glittering Cave", "Reflection Cave",
+"Tower of Mastery", "Azure Bay", "Sea Spirit's Den", "Poke Ball Factory", "Lost Hotel", "Frost Cavern", "Lysandre Labs",
+ "Terminus Cave", "Pokemon Village"
 
 
 7
-Hau'oli City
-Heahea City
-Iki Town
-Konikoni City
-Malie City
-Paniola Town
-Po Town
-Seafolk Village
-Tapu Village
+"Hau'oli City","Heahea City","Iki Town","Konikoni City","Malie City","Paniola Town","Po Town",
+"Seafolk Village","Tapu Village"
+
+"Mahalo Trail", "Hau'oli Cemetery", "Verdant Cavern", "Melemele Meadow", "Seaward Cave", "Kala'e Bay",
+"Ten Carat Hill", "Paniola Ranch", "Brooklet Hill", "Melemele Sea", "Diglett's Tunnel", "Royal Avenue", "Battle Royal Dome", "Wela Volcano Park",
+"Lush Jungle", "Memorial Hill", "Akala Outskirts", "Ruins of Life", "Hano Grand Resort", "Hano Beach", "Malie Garden", "Mount Hokulani",
+"Hokulani Observatory", "Blush Mountain", "Ula'ula Beach", "Aether House", "Haina Desert",
+"Ruins of Abundance", "Ula'ula Meadow", "Lake of the Moone", "Lake of the Sunne", "Shady House", "Poni Wilds", "Ancient Poni Path",
+"Poni Breaker Coast", "Ruins of Hope", "Exeggutor Island", "Vast Poni Canyon", "Altar of the Sunne", "Altar of the Moone", "Mount Lanakila",
+"Ruins of Conflict", "Poni Grove", "Poni Plains", "Poni Meadow", "Resolution Cave", "Poni Coast", "Poni Gauntlet", "Battle Tree",
+"Festival Plaza", "Poke Pelago", "Big Wave Beach", "Sandy Cave", "Heahea Beach", "Pikachu Valley", "Dividing Peak Tunnel",
+"Kantonian Gym", "Poni Beach", "Plains Grotto", "Team Rocket's Castle"
