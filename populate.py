@@ -163,7 +163,7 @@ def fillRegions():
     cur.execute('DROP TABLE IF EXISTS regions')
     cur.execute('CREATE TABLE regions (name TEXT, gen TEXT, towns TEXT, landmarks TEXT, professor TEXT)')
     for i in regions.keys():
-        cur.execute('INSERT INTO games (name, gen, towns, landmarks, professor) VALUES (?, ?, ?, ?, ?)', (regions[i][0], regions[i][1], json.dumps(regions[i][2]), json.dumps(regions[i][3]), regions[i][4]))
+        cur.execute('INSERT INTO regions (name, gen, towns, landmarks, professor) VALUES (?, ?, ?, ?, ?)', (regions[i][0], regions[i][1], json.dumps(regions[i][2]), json.dumps(regions[i][3]), regions[i][4]))
     print("Done")
 
 def fillTowns():
@@ -178,33 +178,119 @@ def fillTowns():
              8 : ['Fuchsia City', 'Kanto', ['Koga', 'Janine'], '1'],
              9 : ['Saffron City', 'Kanto', ['Sabrina'], '1'],
              10 : ['Cinnabar Island', 'Kanto', ['Blaine'], '1'],
-             10 : ['New Bark Town', 'Johto', [], '2'],
-             10 : ['Cherrygrove City', 'Johto', [], '2'],
-             10 : ['Violet City', 'Johto', ['Falkner'], '2'],
-             10 : ['Azalea Town', 'Johto', ['Bugsy'], '2'],
-             10 : ['Goldenrod City', 'Johto', ['Whitney'], '2'],
-             10 : ['Ecruteak City', 'Johto', ['Morty'], '2'],
-             10 : ['Olivine City', 'Johto', ['Jasmine'], '2'],
-             10 : ['Cianwood City', 'Johto', ['Chuck'], '2'],
-             10 : ['Mahogany Town', 'Johto', ['Pryce'], '2'],
-             10 : ['Blackthorn City', 'Johto', ['Clair'], '2'],
-             10 : ['Littleroot Town', 'Hoenn', [], '3'],
-             10 : ['Oldale Town', 'Hoenn', [], '3'],
-             10 : ['Petalburg City', 'Hoenn', ['Norman'], '3'],
-             10 : ['Rustboro City', 'Hoenn', ['Roxanne'], '3'],
-             10 : ['Dewford Town', 'Hoenn', ['Brawly'], '3'],
-             10 : ['Slateport City', 'Hoenn', [], '3'],
-             10 : ['Mauville City', 'Hoenn', ['Wattson'], '3'],
-             10 : ['Verdanturf Town', 'Hoenn', [], '3'],
-             10 : ['Fallarbor Town', 'Hoenn', [], '3'],
-             10 : ['Lavaridge Town', 'Hoenn', ['Flannery'], '3'],
-             10 : ['Fortree City', 'Hoenn', ['Winona'], '3'],
-             10 : ['Lilycove City', 'Hoenn', [], '3'],
-             10 : ['Mossdeep City', 'Hoenn', ['Tate and Liza'], '3'],
-             10 : ['Sootopolis City', 'Hoenn', ['Wallace', 'Juan'], '3'],
-             10 : ['Pacifidlog Town', 'Hoenn', [], '3'],
-             10 : ['Ever Grande City', 'Hoenn', [], '3'],}
+             11 : ['New Bark Town', 'Johto', [], '2'],
+             12 : ['Cherrygrove City', 'Johto', [], '2'],
+             13 : ['Violet City', 'Johto', ['Falkner'], '2'],
+             14 : ['Azalea Town', 'Johto', ['Bugsy'], '2'],
+             15 : ['Goldenrod City', 'Johto', ['Whitney'], '2'],
+             16 : ['Ecruteak City', 'Johto', ['Morty'], '2'],
+             17 : ['Olivine City', 'Johto', ['Jasmine'], '2'],
+             18 : ['Cianwood City', 'Johto', ['Chuck'], '2'],
+             19 : ['Mahogany Town', 'Johto', ['Pryce'], '2'],
+             20 : ['Blackthorn City', 'Johto', ['Clair'], '2'],
+             21 : ['Littleroot Town', 'Hoenn', [], '3'],
+             22 : ['Oldale Town', 'Hoenn', [], '3'],
+             23 : ['Petalburg City', 'Hoenn', ['Norman'], '3'],
+             24 : ['Rustboro City', 'Hoenn', ['Roxanne'], '3'],
+             25 : ['Dewford Town', 'Hoenn', ['Brawly'], '3'],
+             26 : ['Slateport City', 'Hoenn', [], '3'],
+             27 : ['Mauville City', 'Hoenn', ['Wattson'], '3'],
+             28 : ['Verdanturf Town', 'Hoenn', [], '3'],
+             29 : ['Fallarbor Town', 'Hoenn', [], '3'],
+             30 : ['Lavaridge Town', 'Hoenn', ['Flannery'], '3'],
+             31 : ['Fortree City', 'Hoenn', ['Winona'], '3'],
+             32 : ['Lilycove City', 'Hoenn', [], '3'],
+             33 : ['Mossdeep City', 'Hoenn', ['Tate and Liza'], '3'],
+             34 : ['Sootopolis City', 'Hoenn', ['Wallace', 'Juan'], '3'],
+             35 : ['Pacifidlog Town', 'Hoenn', [], '3'],
+             36 : ['Ever Grande City', 'Hoenn', [], '3'],
+             37 : ['Twinleaf Town', 'Sinnoh', [], '4'],
+             38 : ['Sandgem Town', 'Sinnoh', [], '4'],
+             39 : ['Jubilife City', 'Sinnoh', [], '4'],
+             40 : ['Oreburgh City', 'Sinnoh', ['Roark'], '4'],
+             41 : ['Floaroma Town', 'Sinnoh', [], '4'],
+             42 : ['Eterna City', 'Sinnoh', ['Gardenia'], '4'],
+             43 : ['Hearthome City', 'Sinnoh', ['Fantina'], '4'],
+             44 : ['Solaceon Town', 'Sinnoh', [], '4'],
+             45 : ['Veilstone City', 'Sinnoh', ['Maylene'], '4'],
+             46 : ['Pastoria City', 'Sinnoh', ['Crasher Wake'], '4'],
+             47 : ['Celestic Town', 'Sinnoh', [], '4'],
+             48 : ['Canalave City', 'Sinnoh', ['Byron'], '4'],
+             49 : ['Snowpoint City', 'Sinnoh', ['Candice'], '4'],
+             50 : ['Sunyshore City', 'Sinnoh', ['Volkner'], '4'],
+             51 : ['Accumula Town', 'Unova', [], '5'],
+             52 : ['Anville Town', 'Unova', [], '5'],
+             53 : ['Aspertia City', 'Unova', ['Cheren'], '5'],
+             54 : ['Black City', 'Unova', [], '5'],
+             55 : ['Castelia City', 'Unova', ['Burgh'], '5'],
+             56 : ['Driftveil City', 'Unova', ['Clay'], '5'],
+             57 : ['Floccesy Town', 'Unova', [], '5'],
+             58 : ['Humilau City', 'Unova', ['Marlon'], '5'],
+             59 : ['Icirrus City', 'Unova', ['Brycen'], '5'],
+             60 : ['Lacunosa Town', 'Unova', [], '5'],
+             61 : ['Lentimas Town', 'Unova', [], '5'],
+             62 : ['Mistralton City', 'Unova', ['Skyla'], '5'],
+             63 : ['Nacrene City', 'Unova', ['Lenora'], '5'],
+             64 : ['Nimbasa City', 'Unova', ['Elesa'], '5'],
+             65 : ['Nuvema Town', 'Unova', [], '5'],
+             66 : ['Opelucid City', 'Unova', ['Drayden', 'Iris'], '5'],
+             67 : ['Striaton City', 'Unova', ['Cilan', 'Chili', 'Cress'], '5'],
+             68 : ['Undella Town', 'Unova', [], '5'],
+             69 : ['Virbank City', 'Unova', ['Roxie'], '5'],
+             70 : ['White Forest', 'Unova', [], '5'],
+             71 : ['Ambrette Town', 'Kalos', [], '6'],
+             72 : ['Anistar City', 'Kalos', ['Olympia'], '6'],
+             73 : ['Aquacorde Town', 'Kalos', [], '6'],
+             74 : ['Camphrier Town', 'Kalos', [], '6'],
+             75 : ['Coumarine City', 'Kalos', ['Ramos'], '6'],
+             76 : ['Couriway Town', 'Kalos', [], '6'],
+             77 : ['Cyllage City', 'Kalos', ['Grant'], '6'],
+             78 : ['Dendemille Town', 'Kalos', [], '6'],
+             79 : ['Geosenge Town', 'Kalos', [], '6'],
+             80 : ['Kiloude City', 'Kalos', [], '6'],
+             81 : ['Laverre City', 'Kalos', ['Valerie'], '6'],
+             82 : ['Lumiose City', 'Kalos', ['Clemont'], '6'],
+             83 : ['Santalune City', 'Kalos', ['Viola'], '6'],
+             84 : ['Shalour City', 'Kalos', ['Korrina'], '6'],
+             85 : ['Snowbelle City', 'Kalos', ['Wulfric'], '6'],
+             86 : ['Vaniville Town', 'Kalos', [], '6'],
+             87 : ["Hau'oli City", 'Alola', [], '7'],
+             88 : ["Heahea City", 'Alola', [], '7'],
+             89 : ["Iki Town", 'Alola', [], '7'],
+             90 : ["Konikoni City", 'Alola', [], '7'],
+             91 : ["Malie City", 'Alola', [], '7'],
+             92 : ["Paniola Town", 'Alola', [], '7'],
+             93 : ["Po Town", 'Alola', [], '7'],
+             94 : ["Seafolk Village", 'Alola', [], '7'],
+             95 : ["Tapu Village", 'Alola', [], '7']
+             }
+    cur.execute('DROP TABLE IF EXISTS towns')
+    cur.execute('CREATE TABLE towns (name TEXT, region TEXT, leaders TEXT, gen TEXT)')
+    for i in towns.keys():
+        cur.execute('INSERT INTO towns (name, region, leaders, gen) VALUES (?, ?, ?, ?)', (towns[i][0], towns[i][1], json.dumps(towns[i][2]), towns[i][3]))
+    print("Done")
 
+def fillLeaders():
+    print("Starting leaders table fill...")
+    leaders = {1 : ['Brock', 'Pewter City', 'Rock', 'Boulder', '1'],
+               2 : ['Misty', 'Cerulean City', 'Water', 'Cascade', '1'],
+               3 : ['Lt. Surge', 'Vermilion City', 'Electric', 'Thunder', '1'],
+               4 : ['Erika', 'Celadon City', 'Grass', 'Rainbow', '1'],
+               5 : ['Koga', 'Fuchsia City', 'Poison', 'Soul', '1'],
+               6 : ['Sabrina', 'Saffron City', 'Psychic', 'Marsh', '1'],
+               7 : ['Blaine', 'Cinnabar Island', 'Fire', 'Volcano', '1'],
+               8 : ['Janine', 'Fuchsia City', 'Poison', 'Soul', '2'],
+               9 : ['Blue', 'Viridian City', '', 'Earth', '2'],
+               10 : ['Falkner', 'Violet City', 'Flying', 'Zephyr', '2'],
+               11 : ['Bugsy', 'Azalea Town', 'Bug', 'Hive', '2'],
+               12 : ['Whitney', 'Goldenrod City', 'Normal', 'Plain', '2'],
+               13 : ['Morty', 'Ecruteak City', 'Ghost', 'Fog', '2'],
+               14 : ['Jasmine', 'Olivine City', 'Steel', 'Mineral', '2'],
+               15 : ['Chuck', 'Cianwood City', 'Fighting', 'Storm', '2'],
+               16 : ['Pryce', 'Mahogany Town', 'Ice', 'Glacier', '2'],
+               17 : ['Clair', 'Blackthorn City', 'Dragon', 'Rising', '2'],
+               18 : ['Roxanne', 'Rustboro City', 'Rock', '', '3'],
+    }
 
 
 # Start database population / API scraping
@@ -217,6 +303,8 @@ cur = conn.cursor()
 #fillTeams()
 #fillGames()
 #fillRegions()
+#fillTowns()
+#fillLeaders()
 
 # Commit additions and close connection
 conn.commit()
