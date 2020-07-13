@@ -21,8 +21,11 @@ def fillPokemon():
     'Upgrade-Insecure-Requests': '1',
     'User-Agent': 'dechrissen'
     }
-
-    for n in range(300, 305 + 1):
+    # Create table
+    cur.execute('DROP TABLE IF EXISTS pokemon')
+    cur.execute('CREATE TABLE pokemon (name TEXT, preevo TEXT, types TEXT, gen TEXT)')
+    # Scrape API
+    for n in range(1, 807 + 1):
         # Get species JSON
         try:
             req = urllib.request.Request(url.format(str(n)), headers=hdr)
@@ -70,9 +73,7 @@ def fillPokemon():
         # stringify types list
         types = json.dumps(types)
         # insert Pokemon data into table
-        cur.execute('DROP TABLE IF EXISTS pokemon')
-        cur.execute('CREATE TABLE pokemon (name TEXT, preevo TEXT, types TEXT, gen TEXT)')
-        cur.execute('INSERT INTO pokemon (name, preevo, types, gen) VALUES (?, ?, ?, ?)')
+        cur.execute('INSERT INTO pokemon (name, preevo, types, gen) VALUES (?, ?, ?, ?)', (name, preevo, types, gen))
         print("Wrote", n, "to database")
     print("Done")
 
@@ -289,32 +290,92 @@ def fillLeaders():
                15 : ['Chuck', 'Cianwood City', 'Fighting', 'Storm', '2'],
                16 : ['Pryce', 'Mahogany Town', 'Ice', 'Glacier', '2'],
                17 : ['Clair', 'Blackthorn City', 'Dragon', 'Rising', '2'],
-               18 : ['Roxanne', 'Rustboro City', 'Rock', '', '3'],
+               18 : ['Roxanne', 'Rustboro City', 'Rock', 'Stone', '3'],
+               19 : ['Brawly', 'Dewford Town', 'Fighting', 'Knuckle', '3'],
+               20 : ['Wattson', 'Mauville City', 'Electric', 'Dynamo', '3'],
+               21 : ['Flannery', 'Lavaridge Town', 'Fire', 'Heat', '3'],
+               22 : ['Norman', 'Petalburg City', 'Normal', 'Balance', '3'],
+               23 : ['Winona', 'Fortree City', 'Flying', 'Feather', '3'],
+               24 : ['Tate and Liza', 'Mossdeep City', 'Psychic', 'Mind', '3'],
+               25 : ['Wallace', 'Sootopolis City', 'Water', 'Rain', '3'],
+               26 : ['Juan', 'Sootopolis City', 'Water', 'Rain', '3'],
+               27 : ['Roark', 'Oreburgh City', 'Rock', 'Coal', '4'],
+               28 : ['Gardenia', 'Eterna City', 'Grass', 'Forest', '4'],
+               29 : ['Maylene', 'Veilstone City', 'Fighting', 'Cobble', '4'],
+               30 : ['Crasher Wake', 'Pastoria City', 'Water', 'Fen', '4'],
+               31 : ['Fantina', 'Hearthome City', 'Ghost', 'Relic', '4'],
+               32 : ['Byron', 'Canalave City', 'Steel', 'Mine', '4'],
+               33 : ['Candice', 'Snowpoint City', 'Ice', 'Icicle', '4'],
+               34 : ['Volkner', 'Sunyshore City', 'Electric', 'Beacon', '4'],
+               35 : ['Cilan', 'Striaton City', 'Grass', 'Trio', '5'],
+               36 : ['Chili', 'Striaton City', 'Fire', 'Trio', '5'],
+               37 : ['Cress', 'Striaton City', 'Water', 'Trio', '5'],
+               38 : ['Lenora', 'Nacrene City', 'Normal', 'Basic', '5'],
+               39 : ['Burgh', 'Castelia City', 'Bug', 'Insect', '5'],
+               40 : ['Elesa', 'Nimbasa City', 'Electic', 'Bolt', '5'],
+               41 : ['Clay', 'Driftveil City', 'Ground', 'Quake', '5'],
+               42 : ['Skyla', 'Mistralton City', 'Flying', 'Jet', '5'],
+               43 : ['Brycen', 'Icirrus City', 'Ice', 'Freeze', '5'],
+               44 : ['Drayden', 'Opelucid City', 'Dragon', 'Legend', '5'],
+               45 : ['Iris', 'Opelucid City', 'Dragon', 'Legend', '5'],
+               46 : ['Cheren', 'Aspertia City', 'Normal', 'Basic', '5'],
+               47 : ['Roxie', 'Virbank City', 'Poison', 'Toxic', '5'],
+               48 : ['Marlon', 'Humilau City', 'Water', 'Wave', '5'],
+               49 : ['Viola', 'Santalune City', 'Bug', 'Bug', '6'],
+               50 : ['Grant', 'Cyllage City', 'Rock', 'Cliff', '6'],
+               51 : ['Korrina', 'Shalour City', 'Fighting', 'Rumble', '6'],
+               52 : ['Ramos', 'Coumarine City', 'Grass', 'Plant', '6'],
+               53 : ['Clemont', 'Lumiose City', 'Electric', 'Voltage', '6'],
+               54 : ['Valerie', 'Laverre City', 'Fairy', 'Fairy', '6'],
+               55 : ['Olympia', 'Anistar City', 'Psychic', 'Psychic', '6'],
+               56 : ['Wulfric', 'Snowbelle City', 'Ice', 'Iceberg', '6']
     }
+    cur.execute('DROP TABLE IF EXISTS leaders')
+    cur.execute('CREATE TABLE leaders (name TEXT, town TEXT, specialty TEXT, badge TEXT, gen TEXT)')
+    for i in leaders.keys():
+        cur.execute('INSERT INTO leaders (name, town, specialty, badge, gen) VALUES (?, ?, ?, ?, ?)', (leaders[i][0], leaders[i][1], leaders[i][2], leaders[i][3], leaders[i][4]))
+    print("Done")
 
 
 # Start database population / API scraping
 # Open connection to sqlite file
-conn = sqlite3.connect('pokequiz.sqlite')
+db = 'pokequiz.sqlite'
+conn = sqlite3.connect(db, detect_types=sqlite3.PARSE_DECLTYPES) # auto-detect and convert types
 cur = conn.cursor()
 
 # Uncomment functions below to fill corresponding tables
-#fillPokemon()
+
 #fillTeams()
 #fillGames()
 #fillRegions()
 #fillTowns()
 #fillLeaders()
+#fillPokemon()
+
+
+# Correct Pokemon names
+#cur.execute('SELECT * FROM pokemon')
+#for row in cur:
+    #name = row[0]
+    #fixed = name.strip('-').title()
+    #cur.execute('UPDATE pokemon SET name=? WHERE name=? VALUES (?, ?)', (fixed, name))
+#exceptions = ['Porygonz','Jangmoo','Hakamoo','Kommoo','Nidoranm','Nidoranf','Mimejr','Mrmime','Tapukoko','Tapulele','Tapubulu','Tapufini','Typenull','Hooh','Farfetchd']
+#corrections = ['Porygon-Z','Jangmo-o','Hakamo-o','Kommo-o','Nidoran-M','Nidoran-F','Mime Jr.','Mr. Mime','Tapu Koko','Tapu Lele','Tapu Bulu','Tapu Fini','Type: Null','Ho-Oh',"Farfetch'd"]
+#for i in range(len(exceptions)):
+    #cur.execute('UPDATE pokemon SET name = "'+ corrections[i] +'" WHERE name = "'+ exceptions[i] +'";')
 
 # Commit additions and close connection
 conn.commit()
 
 #test stuff
-cur.execute('SELECT rivals FROM games ORDER BY RANDOM() LIMIT 1;')
-for row in cur:
-    j = json.loads(row[0])
-    print(type(j))
-    print(j)
+#cur.execute('SELECT * FROM pokemon ORDER BY RANDOM() LIMIT 5;')
+#for row in cur:
+    #print(row)
+    #print(row[0])
+    #print(type(row[0]))
+    #print(row[3])
+    #print(json.loads(row[2]))
+    #print(type(json.loads(row[2])))
 
 # Close connection to db
 conn.close()
