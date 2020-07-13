@@ -8,7 +8,7 @@ def getQuestion():
     # Question selection
     categories = 6 # (Pokemon, Leader, Town, Team, Region, Game)
     selection = random.randint(1, categories)
-    #selection = 5
+    #selection = 1
     # Pokemon which are among the branched evolutions
     branches = ['Vileplume', 'Bellossom', 'Poliwrath', 'Politoed', 'Slowbro', 'Slowking', 'Vaporeon', 'Jolteon', 'Flareon', 'Espeon', 'Umbreon',
                 'Leafeon', 'Glaceon', 'Sylveon', 'Hitmonlee', 'Hitmonchan', 'Hitmontop', 'Silcoon', 'Cascoon', 'Gardevoir', 'Gallade', 'Ninjask',
@@ -123,9 +123,8 @@ def getQuestion():
             question.A = game.champion
         # "Who is a rival in {}?"
         elif question.type == 2:
-            random_rival = random.choice(game.rivals)
             question.Q = question.Q.format(game.name)
-            question.A = random_rival
+            question.A = game.rivals
     return question
 
 def randomPokemon():
@@ -246,10 +245,47 @@ def randomGame():
 
     return Game(*sel)
 
-def answerCheck():
+def answerCheck(question, input):
     # this function should first check the type of the answer,
     # whether it's str or list, then check if the input is
     # equal to the answer (if str) or in the answer (if list)
     # returns tuple  of bool (right or wrong) and correction
     # if needed, None otherwise
-    pass
+    result = None
+
+    # First do a check for the question "What type is {X Pokemon}?" because it's a special case
+    if type(question) is PokemonQuestion and question.type == 4:
+        # Check if nothing was entered
+        if input == '':
+            return ' '.join(question.A)
+        answer = [x.lower() for x in question.A]
+        input = input.lower().strip().split()
+        # Check if more than 2 types were entered
+        if len(input) > 2:
+            return ' '.join(question.A)
+        # Check if both types entered are the same (if 2 were entered)
+        if len(input) == 2:
+            if input[0] == input[1]:
+                return ' '.join(question.A)
+        # Now check for correctness
+        for t in input:
+            if t not in answer:
+                return ' '.join(question.A)
+        # Return None (correct) if all checks pass
+        return None
+
+    elif type(question.A) is str:
+        input = input.replace(' ', '').strip().lower()
+        x = question.A.replace(' ', '').strip().lower()
+        if input == x:
+            result = None
+        else:
+            result = question.A
+    elif type(question.A) is list:
+        input = input.replace(' ', '').strip().lower()
+        answer = [x.replace(' ', '').strip().lower() for x in question.A]
+        if input in answer:
+            result = None
+        else:
+            result = ' or '.join(question.A)
+    return result
