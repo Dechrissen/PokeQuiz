@@ -40,11 +40,24 @@ def fillPokemon():
         obj = loads(readable)
         # Save variables (name, gen, preevo)
         name = obj['name']
+        # Correct Pokemon name
+        name = name.replace('-', '').title()
+        exceptions = ['Porygonz','Jangmoo','Hakamoo','Kommoo','Nidoranm','Nidoranf','Mimejr','Mrmime','Tapukoko','Tapulele','Tapubulu','Tapufini','Typenull','Hooh','Farfetchd']
+        corrections = ['Porygon-Z','Jangmo-o','Hakamo-o','Kommo-o','Nidoran-M','Nidoran-F','Mime Jr.','Mr. Mime','Tapu Koko','Tapu Lele','Tapu Bulu','Tapu Fini','Type: Null','Ho-Oh',"Farfetch'd"]
+        if name in exceptions:
+            i = exceptions.index(name)
+            name = corrections[i]
         gen = obj['generation']['url'].split('generation/')[1].strip('/')
         try:
             preevo = obj['evolves_from_species']['name']
         except TypeError:
             preevo = None
+        # Correct preevo name
+        if preevo:
+            preevo = preevo.replace('-', '').title()
+            if preevo in exceptions:
+                i = exceptions.index(preevo)
+                preevo = corrections[i]
         # Now get Pokemon JSON for types
         pokemon_url = obj['varieties'][0]['pokemon']['url']
         try:
@@ -60,9 +73,9 @@ def fillPokemon():
         obj = loads(readable)
         # save types
         types = [obj['types'][i]['type']['name'] for i in range(len(obj['types']))]
-        type1 = types[0]
+        type1 = types[0].title()
         try:
-            type2 = types[1]
+            type2 = types[1].title()
         except IndexError:
             type2 = None
         # create types list
@@ -79,6 +92,7 @@ def fillPokemon():
 
 def fillTeams():
     print("Starting teams table fill...")
+    time.sleep(2)
     # Create Teams table
     teams = ['Team Rocket', 'Team Magma', 'Team Aqua', 'Team Galactic', 'Team Plasma', 'Team Flare', 'Team Skull', 'Aether Foundation', 'Team Yell']
     bosses = ['Giovanni', 'Maxie', 'Archie', 'Cyrus', 'N', 'Lysandre', 'Guzma', 'Lusamine', 'Piers']
@@ -93,6 +107,7 @@ def fillTeams():
 
 def fillGames():
     print("Starting games table fill...")
+    time.sleep(2)
     games = {1 : ['Red & Blue', 'Kanto', '1', ['Blue'], 'Blue'],
              2 : ['Yellow', 'Kanto', '1', ['Blue'], 'Blue'],
              3 : ['Gold & Silver', 'Johto', '2', ['Silver'], 'Lance'],
@@ -117,6 +132,7 @@ def fillGames():
 
 def fillRegions():
     print("Starting regions table fill...")
+    time.sleep(2)
     regions = {1 : ['Kanto', '1', ['Pallet Town','Viridian City','Pewter City','Cerulean City','Vermilion City','Lavender Town','Celadon City','Fuchsia City','Saffron City','Cinnabar Island'],
                 ["Cerulean Cave","Diglett's Cave",'Indigo Plateau','Mt. Moon', 'Cycling Road', 'Silence Bridge', 'Pokemon Mansion','Pokemon Tower','Rock Tunnel','SS Anne', 'Tohjo Falls', 'Team Rocket Hideout', 'Fuschia Safari Zone','Seafoam Islands','Silph Co.','Victory Road','Viridian Forest'],
                 'Oak'],
@@ -169,6 +185,7 @@ def fillRegions():
 
 def fillTowns():
     print("Starting towns table fill...")
+    time.sleep(2)
     towns = {1 : ['Pallet Town', 'Kanto', [], '1'],
              2 : ['Viridian City', 'Kanto', ['Giovanni', 'Blue'], '1'],
              3 : ['Pewter City', 'Kanto', ['Brock'], '1'],
@@ -273,6 +290,7 @@ def fillTowns():
 
 def fillLeaders():
     print("Starting leaders table fill...")
+    time.sleep(2)
     leaders = {1 : ['Brock', 'Pewter City', 'Rock', 'Boulder', '1'],
                2 : ['Misty', 'Cerulean City', 'Water', 'Cascade', '1'],
                3 : ['Lt. Surge', 'Vermilion City', 'Electric', 'Thunder', '1'],
@@ -352,17 +370,11 @@ cur = conn.cursor()
 #fillLeaders()
 #fillPokemon()
 
-
-# Correct Pokemon names
-#cur.execute('SELECT * FROM pokemon')
+#cur.execute('SELECT * FROM pokemon ORDER BY RANDOM() LIMIT 5;')
 #for row in cur:
-    #name = row[0]
-    #fixed = name.strip('-').title()
-    #cur.execute('UPDATE pokemon SET name=? WHERE name=? VALUES (?, ?)', (fixed, name))
-#exceptions = ['Porygonz','Jangmoo','Hakamoo','Kommoo','Nidoranm','Nidoranf','Mimejr','Mrmime','Tapukoko','Tapulele','Tapubulu','Tapufini','Typenull','Hooh','Farfetchd']
-#corrections = ['Porygon-Z','Jangmo-o','Hakamo-o','Kommo-o','Nidoran-M','Nidoran-F','Mime Jr.','Mr. Mime','Tapu Koko','Tapu Lele','Tapu Bulu','Tapu Fini','Type: Null','Ho-Oh',"Farfetch'd"]
-#for i in range(len(exceptions)):
-    #cur.execute('UPDATE pokemon SET name = "'+ corrections[i] +'" WHERE name = "'+ exceptions[i] +'";')
+    #print(row)
+    #print(type(row[1]))
+
 
 # Commit additions and close connection
 conn.commit()
