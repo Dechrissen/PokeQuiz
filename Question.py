@@ -4,11 +4,13 @@ import json
 import random
 
 
-def getQuestion():
+def getQuestion(choice, excluded):
     # Question selection
-    categories = 6 # (Pokemon, Leader, Town, Team, Region, Game)
-    selection = random.randint(1, categories)
-    #selection = 2
+    # 1-Pokemon, 2-Leader, 3-Town, 4-Team, 5-Region, 6-Game
+    selection = random.randint(1, 6)
+    # Check if choice was supplied, and if so, overwrite selection
+    if choice:
+        selection = choice
     # Pokemon which are among the branched evolutions
     branches = ['Vileplume', 'Bellossom', 'Poliwrath', 'Politoed', 'Slowbro', 'Slowking', 'Vaporeon', 'Jolteon', 'Flareon', 'Espeon', 'Umbreon',
                 'Leafeon', 'Glaceon', 'Sylveon', 'Hitmonlee', 'Hitmonchan', 'Hitmontop', 'Silcoon', 'Cascoon', 'Gardevoir', 'Gallade', 'Ninjask',
@@ -18,10 +20,12 @@ def getQuestion():
     if selection == 1:
         question = PokemonQuestion()
         pokemon = randomPokemon()
+        while pokemon.gen in excluded:
+            pokemon = randomPokemon()
         # "What is the evolution of {}?"
         if question.type == 1:
             # Do not ask this question while the Pokemon is from a branched evolution line, or while Pokemon has no preevo
-            while (pokemon.name in branches) or (pokemon.preevo is None):
+            while (pokemon.name in branches) or (pokemon.preevo is None) or (pokemon.gen in excluded):
                 pokemon = randomPokemon()
             question.Q = question.Q.format(pokemon.preevo)
             question.A = pokemon.name
@@ -32,19 +36,21 @@ def getQuestion():
         # "What evolves into {}?"
         elif question.type == 3:
             # Do not ask this question while Pokemon has no preevo
-            while (pokemon.preevo is None):
+            while (pokemon.preevo is None) or (pokemon.gen in excluded):
                 pokemon = randomPokemon()
             question.Q = question.Q.format(pokemon.name)
             question.A = pokemon.preevo
         # "What is {}'s type? (space separated if there are two)"
         elif question.type == 4:
             question.Q = question.Q.format(pokemon.name)
-            question.A = pokemon.types
+            question.A = pokemon.types # List, special case
 
     # LeaderQuestion
     elif selection == 2:
         question = LeaderQuestion()
         leader = randomLeader()
+        while leader.gen in excluded:
+            leader = randomLeader()
         # "In what town is {}'s Gym located?""
         if question.type == 1:
             question.Q = question.Q.format(leader.name)
@@ -62,21 +68,25 @@ def getQuestion():
     elif selection == 3:
         question = TownQuestion()
         town = randomTown()
+        while town.gen in excluded:
+            town = randomTown()
         # "In what region is {} located?"
         if question.type == 1:
             question.Q = question.Q.format(town.name)
             question.A = town.region
         # "What is the name of the Gym Leader of {}?"
         elif question.type == 2:
-            while (len(town.leaders) == 0):
+            while (len(town.leaders) == 0) or (town.gen in excluded):
                 town = randomTown()
             question.Q = question.Q.format(town.name)
-            question.A = town.leaders
+            question.A = town.leaders # List
 
     # TeamQuestion
     elif selection == 4:
         question = TeamQuestion()
         team = randomTeam()
+        while team.gen in excluded:
+            team = randomTeam()
         # "{} is the enemy team in what region?"
         if question.type == 1:
             question.Q = question.Q.format(team.name)
@@ -94,6 +104,8 @@ def getQuestion():
     elif selection == 5:
         question = RegionQuestion()
         region = randomRegion()
+        while region.gen in excluded:
+            region = randomRegion()
         # "{} is a landmark in what region?"
         if question.type == 1:
             random_landmark = random.choice(region.landmarks)
@@ -117,6 +129,8 @@ def getQuestion():
     elif selection == 6:
         question = GameQuestion()
         game = randomGame()
+        while game.gen in excluded:
+            game = randomGame()
         # "Who is the Champion in {}?"
         if question.type == 1:
             question.Q = question.Q.format(game.name)
@@ -124,7 +138,7 @@ def getQuestion():
         # "Who is a rival in {}?"
         elif question.type == 2:
             question.Q = question.Q.format(game.name)
-            question.A = game.rivals
+            question.A = game.rivals # List
     return question
 
 def randomPokemon():
@@ -245,6 +259,13 @@ def randomGame():
 
     return Game(*sel)
 
+def removeWords(answer):
+    words = [' town', ' city', ' island', ' badge', 'professor ', 'team ']
+    answer = answer.lower()
+    for word in words:
+        answer = answer.replace(word, '')
+    return answer
+
 def answerCheck(question, input):
     # this function should first check the type of the answer,
     # whether it's str or list, then check if the input is
@@ -252,9 +273,12 @@ def answerCheck(question, input):
     # returns tuple  of bool (right or wrong) and correction
     # if needed, None otherwise
     result = None
-
+    # First and foremost, check if input == "quit" to exit program
+    if input.lower().strip() == 'quit':
+        print("Goodbye!")
+        quit()
     # First do a check for the question "What type is {X Pokemon}?" because it's a special case
-    if type(question) is PokemonQuestion and question.type == 4:
+    elif type(question) is PokemonQuestion and question.type == 4:
         # Check if nothing was entered
         if input == '':
             return ' '.join(question.A)
@@ -274,13 +298,19 @@ def answerCheck(question, input):
         # Return None (correct) if all checks pass
         return None
 
+    # Then check for string answers
     elif type(question.A) is str:
+        # Clean input to remove 'town', 'city', 'badge', etc.
+        input = removeWords(input)
         input = input.replace(' ', '').strip().lower()
-        x = question.A.replace(' ', '').strip().lower()
-        if input == x:
+        answer = removeWords(question.A)
+        answer = answer.replace(' ', '').strip().lower()
+        if input == answer:
             result = None
         else:
             result = question.A
+
+    # Finally check for list answers
     elif type(question.A) is list:
         input = input.replace(' ', '').strip().lower()
         answer = [x.replace(' ', '').strip().lower() for x in question.A]
