@@ -8,7 +8,7 @@ def getQuestion():
     # Question selection
     categories = 6 # (Pokemon, Leader, Town, Team, Region, Game)
     selection = random.randint(1, categories)
-    #selection = 1
+    #selection = 2
     # Pokemon which are among the branched evolutions
     branches = ['Vileplume', 'Bellossom', 'Poliwrath', 'Politoed', 'Slowbro', 'Slowking', 'Vaporeon', 'Jolteon', 'Flareon', 'Espeon', 'Umbreon',
                 'Leafeon', 'Glaceon', 'Sylveon', 'Hitmonlee', 'Hitmonchan', 'Hitmontop', 'Silcoon', 'Cascoon', 'Gardevoir', 'Gallade', 'Ninjask',
@@ -56,7 +56,7 @@ def getQuestion():
         # "What is the name of the Badge of Gym Leader {}?"
         elif question.type == 3:
             question.Q = question.Q.format(leader.name)
-            question.A = leader.badge + ' Badge'
+            question.A = leader.badge
 
     # TownQuestion
     elif selection == 3:
