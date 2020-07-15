@@ -4,7 +4,7 @@ import json
 import random
 
 
-def getQuestion(choice, excluded, last_ten):
+def getQuestion(choice, excluded, last_twenty):
     # Question selection
     # 1-Pokemon, 2-Leader, 3-Town, 4-Team, 5-Region, 6-Game
     selection = random.randint(1, 6)
@@ -146,23 +146,23 @@ def getQuestion(choice, excluded, last_ten):
     # about region and Gen, since these will always be Kanto and 1)
     if excluded == ['2','3','4','5','6','7']:
         if (type(question) is TownQuestion) and (question.type == 1):
-            return getQuestion(choice, excluded, last_ten)
+            return getQuestion(choice, excluded, last_twenty)
         elif (type(question) is PokemonQuestion) and (question.type == 2):
-            return getQuestion(choice, excluded, last_ten)
+            return getQuestion(choice, excluded, last_twenty)
         elif (type(question) is TeamQuestion) and (question.type == 1):
-            return getQuestion(choice, excluded, last_ten)
+            return getQuestion(choice, excluded, last_twenty)
         elif (type(question) is RegionQuestion) and (question.type == 1 or question.type == 3 or question.type == 4):
-            return getQuestion(choice, excluded, last_ten)
+            return getQuestion(choice, excluded, last_twenty)
 
     # Check if current question is the same as any of the last 10 questions asked to prevent duplicates
-    for item in last_ten:
+    for item in last_twenty:
         if question.A == item.A and question.Q == item.Q:
-            return getQuestion(choice, excluded, last_ten)
+            return getQuestion(choice, excluded, last_twenty)
             break
-    # Check if last_ten is at 10 items max
-    if len(last_ten) == 10:
-        last_ten.pop(0)
-    last_ten.append(question)
+    # Check if last_twenty is at 20 items max
+    if len(last_twenty) == 20:
+        last_twenty.pop(0)
+    last_twenty.append(question)
     # Finally, return question object
     return question
 
@@ -170,7 +170,6 @@ def randomPokemon():
     """Creates and returns a random Pokemon object."""
     # Database
     db = 'pokequiz.sqlite'
-
     # Establish connection to SQLite database
     conn = sqlite3.connect(db, detect_types=sqlite3.PARSE_DECLTYPES)
     cur = conn.cursor()
@@ -298,8 +297,8 @@ def answerCheck(question, input):
     # returns tuple  of bool (right or wrong) and correction
     # if needed, None otherwise
     result = None
-    # First and foremost, check if input == "quit" to exit program
-    if input.lower().strip() == 'quit':
+    # First and foremost, check if input == "quit" or "exit" to exit program
+    if input.lower().strip() == 'quit' or input.lower().strip() == 'exit':
         print("Goodbye!")
         quit()
     # First do a check for the question "What type is {X Pokemon}?" because it's a special case

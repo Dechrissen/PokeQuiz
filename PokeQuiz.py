@@ -6,19 +6,17 @@ import time
 
 
 # Settings
-limit = 10 # Question limit
-score = 0
+limit = 20 # Question limit
 excluded = [] # Excluded gens
 status = True # Continue status
 choice = None # Question type (None by default, because all are included)
-last_ten = []
-
+last_twenty = [] # Store of last 20 questions to avoid duplicates
 
 def mainMenu():
     global limit
     print("Please select an option below:\n")
     print("1 - Start Quiz")
-    print("2 - Study Individual Categories")
+    print("2 - Study Categories")
     print("3 - Marathon Mode")
     print("4 - Settings")
     print("5 - Help")
@@ -29,11 +27,16 @@ def mainMenu():
     elif user_input == '2':
         individualCategories()
     elif user_input == '3':
-        limit = 999
+        limit = 1000
     elif user_input == '4':
         settings()
     elif user_input == '5':
-        print("This is where the help section will go...")
+        print("  How to use PokeQuiz\n-----------------------")
+        print("'Start Quiz'\n    This will give you a 20-question quiz.\n")
+        print("'Study Categories'\n    This will give you a 20-question quiz restricted to ONE category.\n")
+        print("'Marathon Mode'\n    This will give you an endless quiz. Type 'quit' at any time to exit.\n")
+        print("'Settings'\n    Here you can edit global settings (generation filtering and question limit) before studying.\n")
+        waiting = input("Press any key to return... ")
         mainMenu()
     else:
         print("Goodbye!")
@@ -125,37 +128,38 @@ def settings():
         quit()
 
 
-# Start
-print("--------------------\nWelcome to PokeQuiz!\n--------------------\n")
-mainMenu()
-while status is True:
-    print("Let's go!\n")
-    for i in range(limit):
-        question = getQuestion(choice, excluded, last_ten)
-        print(question.Q)
-        user_input = input("> ")
-        result = answerCheck(question, user_input)
-        if result:
-            print("Incorrect! Correct answer is:", result, "\n")
+# Main program
+def quiz(status):
+    global limit
+    print("------------------------------\n     Welcome to PokeQuiz!\n------------------------------\n")
+    mainMenu()
+    while status is True:
+        score = 0
+        print("Let's go!\n")
+        for i in range(limit):
+            question = getQuestion(choice, excluded, last_twenty)
+            print('#' + (str(i + 1)) + ': ' + question.Q)
+            user_input = input("> ")
+            result = answerCheck(question, user_input)
+            if result:
+                print("Incorrect! Correct answer is:", result, "\n")
+            else:
+                score += 1
+                print("Correct!\n")
+        # Calculate results
+        percentage = str(round((score / limit) * 100, 2)) + '%'
+        print("----------------------\n     Quiz Results\n----------------------\n", str(score) + " out of " + str(limit) + " correct\n","Score: " + percentage + "\n")
+
+        # Ask user if they want to study again
+        print("Would you like to study again?")
+        user_input = input("> ").lower().strip()
+        if user_input == "yes" or user_input == 'y':
+            continue
         else:
-            score += 1
-            print("Correct!\n")
-    # Calculate results
-    percentage = str(round((score / limit) * 100, 2)) + '%'
-    print("Quiz results\n---------------------\n", str(score) + " out of " + str(limit) + " correct\n","Score: " + percentage + "\n")
-    # Reset score
-    score = 0
+            status = False
+    # Exit
+    print("Goodbye!")
+    quit()
 
-
-    # Ask user if they want to study again
-    print("Would you like to study again?")
-    user_input = input("> ").lower().strip()
-    if user_input == "yes":
-        continue
-    elif user_input == "quit":
-        break
-    else:
-        status = False
-
-# Exit
-print("Goodbye!")
+# Start
+quiz(status)
