@@ -1,2 +1,5 @@
 # PokeQuiz
- A command line Pokémon studying application.
+*A command line Pokemon studying tool.*
+
+## Installation
+`pip install pokequiz`

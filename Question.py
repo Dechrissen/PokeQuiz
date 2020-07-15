@@ -287,6 +287,9 @@ def answerCheck(question, input):
         # Check if more than 2 types were entered
         if len(input) > 2:
             return ' '.join(question.A)
+        # Check if lists are not of equal length
+        if len(input) != len(answer):
+            return ' '.join(question.A)
         # Check if both types entered are the same (if 2 were entered)
         if len(input) == 2:
             if input[0] == input[1]:

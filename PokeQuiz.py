@@ -78,9 +78,12 @@ def options():
     print("4 - Quit\n")
     user_input = input("> ").strip()
     if user_input == '1':
-        print("Enter an upper limit for Generation to restrict questions: (2 - 7)")
+        print("Enter an upper limit for Generation to restrict questions: (1 - 7)")
         gen = input("> ").strip()
-        if gen == '2':
+        if gen == '1':
+            excluded = ['2','3','4','5','6','7']
+            print("Generation 2 - 7 questions will be excluded.")
+        elif gen == '2':
             excluded = ['3','4','5','6','7']
             print("Generation 3 - 7 questions will be excluded.")
         elif gen == '3':
