@@ -4,13 +4,15 @@ import json
 import random
 
 
-def getQuestion(choice, excluded):
+def getQuestion(choice, excluded, last_ten):
     # Question selection
     # 1-Pokemon, 2-Leader, 3-Town, 4-Team, 5-Region, 6-Game
     selection = random.randint(1, 6)
+
     # Check if choice was supplied, and if so, overwrite selection
     if choice:
         selection = choice
+
     # Pokemon which are among the branched evolutions
     branches = ['Vileplume', 'Bellossom', 'Poliwrath', 'Politoed', 'Slowbro', 'Slowking', 'Vaporeon', 'Jolteon', 'Flareon', 'Espeon', 'Umbreon',
                 'Leafeon', 'Glaceon', 'Sylveon', 'Hitmonlee', 'Hitmonchan', 'Hitmontop', 'Silcoon', 'Cascoon', 'Gardevoir', 'Gallade', 'Ninjask',
@@ -139,6 +141,29 @@ def getQuestion(choice, excluded):
         elif question.type == 2:
             question.Q = question.Q.format(game.name)
             question.A = game.rivals # List
+
+    # Check if every Gen after Gen 1 is in excluded, and if so, restrict certain question types (the ones which ask
+    # about region and Gen, since these will always be Kanto and 1)
+    if excluded == ['2','3','4','5','6','7']:
+        if (type(question) is TownQuestion) and (question.type == 1):
+            return getQuestion(choice, excluded, last_ten)
+        elif (type(question) is PokemonQuestion) and (question.type == 2):
+            return getQuestion(choice, excluded, last_ten)
+        elif (type(question) is TeamQuestion) and (question.type == 1):
+            return getQuestion(choice, excluded, last_ten)
+        elif (type(question) is RegionQuestion) and (question.type == 1 or question.type == 3 or question.type == 4):
+            return getQuestion(choice, excluded, last_ten)
+
+    # Check if current question is the same as any of the last 10 questions asked to prevent duplicates
+    for item in last_ten:
+        if question.A == item.A and question.Q == item.Q:
+            return getQuestion(choice, excluded, last_ten)
+            break
+    # Check if last_ten is at 10 items max
+    if len(last_ten) == 10:
+        last_ten.pop(0)
+    last_ten.append(question)
+    # Finally, return question object
     return question
 
 def randomPokemon():
@@ -305,9 +330,9 @@ def answerCheck(question, input):
     elif type(question.A) is str:
         # Clean input to remove 'town', 'city', 'badge', etc.
         input = removeWords(input)
-        input = input.replace(' ', '').strip().lower()
+        input = input.replace(' ', '').replace('-', '').replace('.', '').strip().lower()
         answer = removeWords(question.A)
-        answer = answer.replace(' ', '').strip().lower()
+        answer = answer.replace(' ', '').replace('-', '').replace('.', '').strip().lower()
         if input == answer:
             result = None
         else:
@@ -315,8 +340,8 @@ def answerCheck(question, input):
 
     # Finally check for list answers
     elif type(question.A) is list:
-        input = input.replace(' ', '').strip().lower()
-        answer = [x.replace(' ', '').strip().lower() for x in question.A]
+        input = input.replace(' ', '').replace('-', '').replace('.', '').strip().lower()
+        answer = [x.replace(' ', '').replace('-', '').replace('.', '').strip().lower() for x in question.A]
         if input in answer:
             result = None
         else:

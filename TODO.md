@@ -5,4 +5,4 @@
 - Fix pokemon question "What is the evo of {}?" including new gen preevos when their gen is excluded
 - user profiles and high scores?
 - add a help/about option to main menu
-- beedrill types wrong????
+- make a cleanup function to do the punctuation and space removal for answers

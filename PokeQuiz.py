@@ -11,6 +11,7 @@ score = 0
 excluded = [] # Excluded gens
 status = True # Continue status
 choice = None # Question type (None by default, because all are included)
+last_ten = []
 
 
 def mainMenu():
@@ -19,7 +20,7 @@ def mainMenu():
     print("1 - Start Quiz")
     print("2 - Study Individual Categories")
     print("3 - Marathon Mode")
-    print("4 - Options")
+    print("4 - Settings")
     print("5 - Help")
     print("6 - Quit\n")
     user_input = input("> ").strip()
@@ -30,7 +31,7 @@ def mainMenu():
     elif user_input == '3':
         limit = 999
     elif user_input == '4':
-        options()
+        settings()
     elif user_input == '5':
         print("This is where the help section will go...")
         mainMenu()
@@ -47,8 +48,9 @@ def individualCategories():
     print("4 - Study Towns")
     print("5 - Study Gym Leaders")
     print("6 - Study Teams")
-    print("7 - Back to Main Menu")
-    print("8 - Quit\n")
+    print("7 - Study All")
+    print("8 - Back to Main Menu")
+    print("9 - Quit\n")
     user_input = input("> ").strip()
     if user_input == '1':
         choice = 1
@@ -63,12 +65,14 @@ def individualCategories():
     elif user_input == '6':
         choice = 4
     elif user_input == '7':
+        choice = None
+    elif user_input == '8':
         mainMenu()
     else:
         print("Goodbye!")
         quit()
 
-def options():
+def settings():
     global limit
     global excluded
     print("Please select an option below:\n")
@@ -102,18 +106,18 @@ def options():
             print("No Generations will be excluded.")
         else:
             print("Invalid input.")
-        print("Returning to Options menu...\n")
-        options()
+        print("Returning to main menu...\n")
+        mainMenu()
     elif user_input == '2':
         print("Enter desired number of questions per quiz:")
         num = input("> ").strip()
         try:
             limit = int(num)
-            print("Question limit set to", num, "\nReturning to Options menu...\n")
-            options()
+            print("Question limit set to", num, "\nReturning to main menu...\n")
+            mainMenu()
         except ValueError:
-            print("Invalid input.\nReturning to Options menu...\n")
-            options()
+            print("Invalid input.\nReturning to main menu...\n")
+            mainMenu()
     elif user_input == '3':
         mainMenu()
     else:
@@ -127,7 +131,7 @@ mainMenu()
 while status is True:
     print("Let's go!\n")
     for i in range(limit):
-        question = getQuestion(choice, excluded)
+        question = getQuestion(choice, excluded, last_ten)
         print(question.Q)
         user_input = input("> ")
         result = answerCheck(question, user_input)
