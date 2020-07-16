@@ -146,12 +146,13 @@ def quiz(status):
     global limit
     print("------------------------------\n     Welcome to PokeQuiz!\n------------------------------\n")
     mainMenu()
+    if seed:
+        seed_quiz = getSeed(seed)
     while status is True:
         score = 0
         print("Let's go!\n")
         for i in range(limit):
             if seed:
-                seed_quiz = getSeed(seed)
                 question = seedQuestion(*seed_quiz[str(i + 1)])
             else:
                 question = getQuestion(choice, excluded, last_twenty)

@@ -1,6 +1,6 @@
-import random
 from Classes import *
-from Question import getQuestion, answerCheck
+from Question import getQuestion
+import random
 import json
 
 # This script is used to generate "seeds" and corresponding random Q/A pairs saved to a json file

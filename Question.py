@@ -3,11 +3,15 @@ import sqlite3
 import json
 import random
 
+db = 'pokequiz.sqlite'
+
 
 def getQuestion(choice, excluded, last_twenty):
     # Question selection
     # 1-Pokemon, 2-Leader, 3-Town, 4-Team, 5-Region, 6-Game
-    selection = random.randint(1, 6)
+    selection = random.choices(population = [1, 2, 3, 4, 5, 6],
+                               weights = [.20, .20, .20, .10, .20, .10],
+                               k = 1)[0]
 
     # Check if choice was supplied, and if so, overwrite selection
     if choice:
@@ -26,8 +30,8 @@ def getQuestion(choice, excluded, last_twenty):
             pokemon = randomPokemon()
         # "What is the evolution of {}?"
         if question.type == 1:
-            # Do not ask this question while the Pokemon is from a branched evolution line, or while Pokemon has no preevo
-            while (pokemon.name in branches) or (pokemon.preevo is None) or (pokemon.gen in excluded):
+            # Do not ask this question while the Pokemon is from a branched evolution line, or while Pokemon has no preevo, or while Pokemon/preevo gen is excluded
+            while (pokemon.name in branches) or (pokemon.preevo is None) or (pokemon.gen in excluded) or (checkPreevoGen(pokemon.preevo) in excluded):
                 pokemon = randomPokemon()
             question.Q = question.Q.format(pokemon.preevo)
             question.A = pokemon.name
@@ -37,8 +41,8 @@ def getQuestion(choice, excluded, last_twenty):
             question.A = pokemon.gen
         # "What evolves into {}?"
         elif question.type == 3:
-            # Do not ask this question while Pokemon has no preevo
-            while (pokemon.preevo is None) or (pokemon.gen in excluded):
+            # Do not ask this question while Pokemon has no preevo, or while Pokemon/preevo gen is excluded
+            while (pokemon.preevo is None) or (pokemon.gen in excluded) or (checkPreevoGen(pokemon.preevo) in excluded):
                 pokemon = randomPokemon()
             question.Q = question.Q.format(pokemon.name)
             question.A = pokemon.preevo
@@ -166,6 +170,15 @@ def getQuestion(choice, excluded, last_twenty):
     # Finally, return question object
     return question
 
+def checkPreevoGen(preevo):
+    """Returns the gen (str) of a preevo of a Pokemon object."""
+    conn = sqlite3.connect(db, detect_types=sqlite3.PARSE_DECLTYPES)
+    cur = conn.cursor()
+    cur.execute('SELECT gen FROM pokemon WHERE name = ?;', (preevo,))
+    sel = list(cur.fetchone())[0]
+    conn.close()
+    return sel
+
 def getSeed(seed):
     with open('seeds.json', 'r') as f:
         s = f.read()
@@ -178,8 +191,6 @@ def getSeed(seed):
 
 def randomPokemon():
     """Creates and returns a random Pokemon object."""
-    # Database
-    db = 'pokequiz.sqlite'
     # Establish connection to SQLite database
     conn = sqlite3.connect(db, detect_types=sqlite3.PARSE_DECLTYPES)
     cur = conn.cursor()
@@ -197,9 +208,6 @@ def randomPokemon():
 
 def randomLeader():
     """Creates and returns a random Leader object."""
-    # Database
-    db = 'pokequiz.sqlite'
-
     # Establish connection to SQLite database
     conn = sqlite3.connect(db, detect_types=sqlite3.PARSE_DECLTYPES)
     cur = conn.cursor()
@@ -215,9 +223,6 @@ def randomLeader():
 
 def randomTeam():
     """Creates and returns a random Team object."""
-    # Database
-    db = 'pokequiz.sqlite'
-
     # Establish connection to SQLite database
     conn = sqlite3.connect(db, detect_types=sqlite3.PARSE_DECLTYPES)
     cur = conn.cursor()
@@ -233,9 +238,6 @@ def randomTeam():
 
 def randomTown():
     """Creates and returns a random Town object."""
-    # Database
-    db = 'pokequiz.sqlite'
-
     # Establish connection to SQLite database
     conn = sqlite3.connect(db, detect_types=sqlite3.PARSE_DECLTYPES)
     cur = conn.cursor()
@@ -253,9 +255,6 @@ def randomTown():
 
 def randomRegion():
     """Creates and returns a random Region object."""
-    # Database
-    db = 'pokequiz.sqlite'
-
     # Establish connection to SQLite database
     conn = sqlite3.connect(db, detect_types=sqlite3.PARSE_DECLTYPES)
     cur = conn.cursor()
@@ -275,9 +274,6 @@ def randomRegion():
 
 def randomGame():
     """Creates and returns a random Game object."""
-    # Database
-    db = 'pokequiz.sqlite'
-
     # Establish connection to SQLite database
     conn = sqlite3.connect(db, detect_types=sqlite3.PARSE_DECLTYPES)
     cur = conn.cursor()
@@ -294,23 +290,35 @@ def randomGame():
     return Game(*sel)
 
 def removeWords(answer):
+    """Removes specific words from input or answer, to allow for more leniency."""
     words = [' town', ' city', ' island', ' badge', 'professor ', 'team ']
     answer = answer.lower()
     for word in words:
         answer = answer.replace(word, '')
     return answer
 
+def clean(s):
+    """Cleans a string to remove space, -, ., and make lowercase."""
+    return s.replace(' ', '').replace('-', '').replace('.', '').replace('\'', '').strip().lower()
+
 def answerCheck(question, input):
-    # this function should first check the type of the answer,
-    # whether it's str or list, then check if the input is
-    # equal to the answer (if str) or in the answer (if list)
-    # returns tuple  of bool (right or wrong) and correction
-    # if needed, None otherwise
+    """Checks the correctness of an answer and returns None if correct, or string
+    containing the correct answer if incorrect.
+
+    Flow
+    ----
+    1. Check if input == 'exit' or 'quit', and abort if so
+    2. Check for special case "What type is {X Pokemon}?"
+    3. Check if the correct answer is string
+    4. Check if the correct answer is list
+    5. Return result
+    """
     result = None
     # First and foremost, check if input == "quit" or "exit" to exit program
     if input.lower().strip() == 'quit' or input.lower().strip() == 'exit':
         print("Goodbye!")
         quit()
+
     # First do a check for the question "What type is {X Pokemon}?" because it's a special case
     elif type(question) is PokemonQuestion and question.type == 4:
         # Check if nothing was entered
@@ -328,7 +336,7 @@ def answerCheck(question, input):
         if len(input) == 2:
             if input[0] == input[1]:
                 return ' '.join(question.A)
-        # Now check for correctness
+        # Now check for (in)correctness
         for t in input:
             if t not in answer:
                 return ' '.join(question.A)
@@ -339,9 +347,9 @@ def answerCheck(question, input):
     elif type(question.A) is str:
         # Clean input to remove 'town', 'city', 'badge', etc.
         input = removeWords(input)
-        input = input.replace(' ', '').replace('-', '').replace('.', '').strip().lower()
+        input = clean(input)
         answer = removeWords(question.A)
-        answer = answer.replace(' ', '').replace('-', '').replace('.', '').strip().lower()
+        answer = clean(answer)
         if input == answer:
             result = None
         else:
@@ -349,8 +357,8 @@ def answerCheck(question, input):
 
     # Finally check for list answers
     elif type(question.A) is list:
-        input = input.replace(' ', '').replace('-', '').replace('.', '').strip().lower()
-        answer = [x.replace(' ', '').replace('-', '').replace('.', '').strip().lower() for x in question.A]
+        input = clean(input)
+        answer = [clean(x) for x in question.A]
         if input in answer:
             result = None
         else:
