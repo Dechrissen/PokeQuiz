@@ -3,7 +3,8 @@ import sqlite3
 import json
 import random
 
-db = 'pokequiz.sqlite'
+db = 'pokequiz/pokequiz.sqlite'
+seedsjson = 'pokequiz/seeds.json'
 
 
 def getQuestion(choice, excluded, last_twenty):
@@ -180,7 +181,7 @@ def checkPreevoGen(preevo):
     return sel
 
 def getSeed(seed):
-    with open('seeds.json', 'r') as f:
+    with open(seedsjson, 'r') as f:
         s = f.read()
         seeds_dict = json.loads(s)
         try:
