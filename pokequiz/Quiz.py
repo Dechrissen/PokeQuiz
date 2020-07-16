@@ -16,7 +16,7 @@ seed = None
 def mainMenu():
     global limit
     global seed
-    print("Please select an option below:\n")
+    print("       -----------------\n           Main Menu\n       -----------------\n")
     print("1 - Start Quiz")
     print("2 - Study Categories")
     print("3 - Marathon Mode")
@@ -43,13 +43,14 @@ def mainMenu():
             seed = given_seed
             limit = 20
     elif user_input == '6':
-        print("  How to use PokeQuiz\n-----------------------")
-        print("'Start Quiz'\n    This will give you a 20-question quiz.\n")
-        print("'Study Categories'\n    This will give you a 20-question quiz restricted to ONE category.\n")
-        print("'Marathon Mode'\n    This will give you an endless quiz. Type 'quit' at any time to exit.\n")
-        print("'Set Seed'\n    Enter a seed to challenge others to the same quiz.\n")
-        print("'Settings'\n    Here you can edit global settings (generation filtering and question limit) before studying.\n")
+        print("How to use PokeQuiz\n-------------------")
+        print("'Start Quiz' - This will give you a 20-question quiz.\n")
+        print("'Study Categories' - This will give you a 20-question quiz restricted to ONE category.\n")
+        print("'Marathon Mode' - This will give you an endless quiz. Type 'quit' at any time to exit.\n")
+        print("'Set Seed' - Enter a seed to challenge others to the same quiz.\n")
+        print("'Settings' - Here you can edit global settings (generation filtering and question limit) before studying.\n")
         waiting = input("Press any key to return... ")
+        print("")
         mainMenu()
     else:
         print("Goodbye!")
@@ -57,7 +58,7 @@ def mainMenu():
 
 def individualCategories():
     global choice
-    print("Please select an option below:\n")
+    print("       ------------------\n           Categories\n       ------------------\n")
     print("1 - Study Pokemon")
     print("2 - Study Games")
     print("3 - Study Regions")
@@ -91,11 +92,12 @@ def individualCategories():
 def settings():
     global limit
     global excluded
-    print("Please select an option below:\n")
+    print("       ----------------\n           Settings\n       ----------------\n")
     print("1 - Filter Generations")
     print("2 - Set Question Limit")
-    print("3 - Back to Main Menu")
-    print("4 - Quit\n")
+    print("3 - Current Settings")
+    print("4 - Back to Main Menu")
+    print("5 - Quit\n")
     user_input = input("> ").strip()
     if user_input == '1':
         print("Enter an upper limit for Generation to restrict questions: (1 - 7)")
@@ -135,6 +137,13 @@ def settings():
             print("Invalid input.\nReturning to main menu...\n")
             mainMenu()
     elif user_input == '3':
+        print("Current Settings\n----------------")
+        print("Question limit:", limit)
+        print("Excluded generations:", ", ".join(excluded) if excluded else "None", "\n")
+        waiting = input("Press any key to return... ")
+        print("")
+        settings()
+    elif user_input == '4':
         mainMenu()
     else:
         print("Goodbye!")
@@ -144,7 +153,7 @@ def settings():
 # Main program
 def quiz(status):
     global limit
-    print("------------------------------\n     Welcome to PokeQuiz!\n------------------------------\n")
+    print("------------------------------\n     Welcome to PokeQuiz!\n------------------------------")
     mainMenu()
     if seed:
         seed_quiz = getSeed(seed)

@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="pokequiz",
-    version="0.0.1",
+    version="1.0.0",
     author="Derek Andersen",
     author_email="derekcandersen@gmail.com",
     description="A command line Pokemon studying tool.",
@@ -18,5 +18,10 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
+    entry_points={
+    'console_scripts': [
+        'pokequiz = pokequiz.Quiz:quiz'
+    ]
+    },
     python_requires='>=3.6',
 )
