@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name="pokequiz",
-    version="1.0.13",
+    version="1.0.14",
     author="Derek Andersen",
     author_email="derekcandersen@gmail.com",
     description="A command line Pokemon studying tool.",
@@ -22,7 +22,7 @@ setup(
     ],
     entry_points={
     'console_scripts': [
-        'pokequiz = pokequiz.Quiz'
+        'pokequiz = pokequiz.Quiz:quiz'
     ]
     },
     python_requires='>=3.6'
