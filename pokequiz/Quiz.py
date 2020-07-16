@@ -1,7 +1,7 @@
 import random
 import sqlite3
-from Classes import *
-from Question import getQuestion, getSeed, answerCheck
+from pokequiz.Classes import *
+from pokequiz.Question import getQuestion, getSeed, answerCheck
 import time
 
 

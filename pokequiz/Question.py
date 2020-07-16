@@ -1,4 +1,4 @@
-from Classes import *
+from pokequiz.Classes import *
 import sqlite3
 import json
 import random
