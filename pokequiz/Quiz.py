@@ -151,7 +151,8 @@ def settings():
 
 
 # Main program
-def quiz(status):
+def quiz():
+    global status
     global limit
     print("------------------------------\n     Welcome to PokeQuiz!\n------------------------------")
     mainMenu()
@@ -192,4 +193,4 @@ def quiz(status):
     quit()
 
 # Start
-quiz(status)
+quiz()
