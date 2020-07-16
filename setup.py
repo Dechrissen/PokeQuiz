@@ -5,12 +5,13 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="pokequiz",
-    version="1.0.0",
+    version="1.0.2",
     author="Derek Andersen",
     author_email="derekcandersen@gmail.com",
     description="A command line Pokemon studying tool.",
     long_description=long_description,
     long_description_content_type="text/markdown",
+    include_package_data=True,
     url="https://github.com/Dechrissen/PokeQuiz",
     packages=setuptools.find_packages(),
     classifiers=[

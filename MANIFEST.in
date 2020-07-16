@@ -1,0 +1,2 @@
+include pokequiz/pokequiz.sqlite
+include seeds.json
