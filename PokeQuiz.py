@@ -1,7 +1,7 @@
 import random
 import sqlite3
 from Classes import *
-from Question import getQuestion, answerCheck
+from Question import getQuestion, getSeed, answerCheck
 import time
 
 
@@ -11,16 +11,19 @@ excluded = [] # Excluded gens
 status = True # Continue status
 choice = None # Question type (None by default, because all are included)
 last_twenty = [] # Store of last 20 questions to avoid duplicates
+seed = None
 
 def mainMenu():
     global limit
+    global seed
     print("Please select an option below:\n")
     print("1 - Start Quiz")
     print("2 - Study Categories")
     print("3 - Marathon Mode")
     print("4 - Settings")
-    print("5 - Help")
-    print("6 - Quit\n")
+    print("5 - Set Seed")
+    print("6 - Help")
+    print("7 - Quit\n")
     user_input = input("> ").strip()
     if user_input == '1':
         return
@@ -31,10 +34,20 @@ def mainMenu():
     elif user_input == '4':
         settings()
     elif user_input == '5':
+        print("Enter a seed:")
+        given_seed = input("> ").strip()
+        if given_seed == '':
+            print("Invalid input.\nReturning to main menu...\n")
+            mainMenu()
+        else:
+            seed = given_seed
+            limit = 20
+    elif user_input == '6':
         print("  How to use PokeQuiz\n-----------------------")
         print("'Start Quiz'\n    This will give you a 20-question quiz.\n")
         print("'Study Categories'\n    This will give you a 20-question quiz restricted to ONE category.\n")
         print("'Marathon Mode'\n    This will give you an endless quiz. Type 'quit' at any time to exit.\n")
+        print("'Set Seed'\n    Enter a seed to challenge others to the same quiz.\n")
         print("'Settings'\n    Here you can edit global settings (generation filtering and question limit) before studying.\n")
         waiting = input("Press any key to return... ")
         mainMenu()
@@ -137,7 +150,11 @@ def quiz(status):
         score = 0
         print("Let's go!\n")
         for i in range(limit):
-            question = getQuestion(choice, excluded, last_twenty)
+            if seed:
+                seed_quiz = getSeed(seed)
+                question = seedQuestion(*seed_quiz[str(i + 1)])
+            else:
+                question = getQuestion(choice, excluded, last_twenty)
             print('#' + (str(i + 1)) + ': ' + question.Q)
             user_input = input("> ")
             result = answerCheck(question, user_input)
@@ -148,8 +165,11 @@ def quiz(status):
                 print("Correct!\n")
         # Calculate results
         percentage = str(round((score / limit) * 100, 2)) + '%'
-        print("----------------------\n     Quiz Results\n----------------------\n", str(score) + " out of " + str(limit) + " correct\n","Score: " + percentage + "\n")
-
+        print("----------------------\n     Quiz Results\n----------------------\n", str(score) + " out of " + str(limit) + " correct\n","Score: " + percentage)
+        if seed:
+            print(" Seed:", seed, "\n")
+        else:
+            print("\n")
         # Ask user if they want to study again
         print("Would you like to study again?")
         user_input = input("> ").lower().strip()

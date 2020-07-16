@@ -219,3 +219,8 @@ class GameQuestion:
         self.type = n
         self.Q = types[n]
         self.A = None
+
+class seedQuestion:
+    def __init__(self, Q, A):
+        self.Q = Q
+        self.A = A

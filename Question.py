@@ -166,6 +166,16 @@ def getQuestion(choice, excluded, last_twenty):
     # Finally, return question object
     return question
 
+def getSeed(seed):
+    with open('seeds.json', 'r') as f:
+        s = f.read()
+        seeds_dict = json.loads(s)
+        try:
+            return seeds_dict[seed]
+        except KeyError:
+            print("Seed '" + seed + "' does not exist. Aborting...")
+            quit()
+
 def randomPokemon():
     """Creates and returns a random Pokemon object."""
     # Database
