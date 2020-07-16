@@ -1,2 +1,2 @@
-include pokequiz/pokequiz.sqlite
-include seeds.json
+include ./pokequiz/pokequiz.sqlite
+include ./pokequiz/seeds.json
