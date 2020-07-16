@@ -5,15 +5,15 @@ with open("README.md", "r") as fh:
 
 setup(
     name="pokequiz",
-    version="1.0.7",
+    version="1.0.8",
     author="Derek Andersen",
     author_email="derekcandersen@gmail.com",
     description="A command line Pokemon studying tool.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    include_package_data=True,
     url="https://github.com/Dechrissen/PokeQuiz",
     packages=find_packages(),
+    include_package_data=True,
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
