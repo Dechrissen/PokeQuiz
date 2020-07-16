@@ -1,2 +1,2 @@
-recursive-include pokequiz *.sqlite
-recursive-include pokequiz *.json
+include pokequiz pokequiz.sqlite
+include pokequiz seeds.json
