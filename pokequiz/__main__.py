@@ -14,7 +14,6 @@ choice = None # Question type (None by default, because all are included)
 last_twenty = [] # Store of last 20 questions to avoid duplicates
 seed = None
 
-
 def mainMenu():
     global limit
     global seed

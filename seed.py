@@ -5,12 +5,14 @@ import json
 
 # This script is used to generate "seeds" and corresponding random Q/A pairs saved to a json file
 
+
+# generate 1-100 (no restrictions)
 choice = None
 excluded = []
 last_twenty = []
 num_of_seeds = 100
 num_of_q = 20
-print("Creating seeds...")
+print("Creating seeds 1-100...")
 with open('seeds.json', 'w') as f:
     seeds_dict = {}
     for i in range(num_of_seeds):
