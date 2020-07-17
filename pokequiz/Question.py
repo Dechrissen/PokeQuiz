@@ -5,7 +5,7 @@ import random
 import pathlib
 import platform
 
-# Find the path to the package to access data files
+# Find the path to the package to access database and seed files
 p = str(pathlib.Path(__file__).parent.absolute()) + "/"
 if platform.system() == 'Windows':
     p = str(pathlib.Path(__file__).parent.absolute()) + "\\"
