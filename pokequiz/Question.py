@@ -2,11 +2,12 @@ from pokequiz.Classes import *
 import sqlite3
 import json
 import random
+import pathlib
 
 
-
-db = 'pokequiz.sqlite'
-seedsjson = 'seeds.json'
+p = str(pathlib.Path(__file__).parent.absolute()) + "\\"
+db = p + 'pokequiz.sqlite'
+seedsjson = p + 'seeds.json'
 
 def getQuestion(choice, excluded, last_twenty):
     # Question selection
