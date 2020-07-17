@@ -3,9 +3,10 @@ import sqlite3
 import json
 import random
 
-db = './pokequiz.sqlite'
-seedsjson = './seeds.json'
 
+
+db = 'pokequiz.sqlite'
+seedsjson = 'seeds.json'
 
 def getQuestion(choice, excluded, last_twenty):
     # Question selection

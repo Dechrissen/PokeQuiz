@@ -3,6 +3,10 @@ import sqlite3
 from pokequiz.Classes import *
 from pokequiz.Question import getQuestion, getSeed, answerCheck
 import time
+import pathlib
+
+
+
 
 
 # Settings
@@ -12,6 +16,8 @@ status = True # Continue status
 choice = None # Question type (None by default, because all are included)
 last_twenty = [] # Store of last 20 questions to avoid duplicates
 seed = None
+p = str(pathlib.Path(__file__).parent.absolute()) + "afinefosgii"
+
 
 def mainMenu():
     global limit
@@ -154,6 +160,7 @@ def settings():
 def quiz():
     global status
     global limit
+    global p
     print("------------------------------\n     Welcome to PokeQuiz!\n------------------------------")
     mainMenu()
     if seed:
