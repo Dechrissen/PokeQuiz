@@ -18,9 +18,10 @@ To install via pip, go to your terminal and run:
 > pip install pokequiz
 ```
 
-To install from source, download the latest release [here](https://github.com/Dechrissen/PokeQuiz/releases). Make sure to `cd` into the directory of the source files and and run:
+To install using git, run:
 ```cmd
-> python setup.py install
+> git clone https://github.com/Dechrissen/PokeQuiz.git
+> cd pokequiz && pip install -U .
 ```
 
 ## Usage
