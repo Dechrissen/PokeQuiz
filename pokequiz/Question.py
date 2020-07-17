@@ -3,9 +3,11 @@ import sqlite3
 import json
 import random
 import pathlib
+import platform
 
-
-p = str(pathlib.Path(__file__).parent.absolute()) + "\\"
+p = str(pathlib.Path(__file__).parent.absolute()) + "/"
+if platform.system() == 'Windows':
+    p = str(pathlib.Path(__file__).parent.absolute()) + "\\"
 db = p + 'pokequiz.sqlite'
 seedsjson = p + 'seeds.json'
 
