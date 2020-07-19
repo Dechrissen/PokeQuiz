@@ -330,7 +330,7 @@ def fillLeaders():
                37 : ['Cress', 'Striaton City', 'Water', 'Trio Badge', '5'],
                38 : ['Lenora', 'Nacrene City', 'Normal', 'Basic Badge', '5'],
                39 : ['Burgh', 'Castelia City', 'Bug', 'Insect Badge', '5'],
-               40 : ['Elesa', 'Nimbasa City', 'Electic', 'Bolt Badge', '5'],
+               40 : ['Elesa', 'Nimbasa City', 'Electric', 'Bolt Badge', '5'],
                41 : ['Clay', 'Driftveil City', 'Ground', 'Quake Badge', '5'],
                42 : ['Skyla', 'Mistralton City', 'Flying', 'Jet Badge', '5'],
                43 : ['Brycen', 'Icirrus City', 'Ice', 'Freeze Badge', '5'],

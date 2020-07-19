@@ -5,6 +5,7 @@ import random
 import pathlib
 import platform
 
+
 # Find the path to the package to access database and seed files
 p = str(pathlib.Path(__file__).parent.absolute()) + "/"
 if platform.system() == 'Windows':
@@ -16,7 +17,7 @@ def getQuestion(choice, excluded, last_twenty):
     # Question selection
     # 1-Pokemon, 2-Leader, 3-Town, 4-Team, 5-Region, 6-Game
     selection = random.choices(population = [1, 2, 3, 4, 5, 6],
-                               weights = [.20, .20, .20, .10, .20, .10],
+                               weights = [.20, .18, .22, .10, .20, .10],
                                k = 1)[0]
 
     # Check if choice was supplied, and if so, overwrite selection
@@ -154,7 +155,9 @@ def getQuestion(choice, excluded, last_twenty):
 
     # Check if every Gen after Gen 1 is in excluded, and if so, restrict certain question types (the ones which ask
     # about region and Gen, since these will always be Kanto and 1)
-    if excluded == ['2','3','4','5','6','7']:
+    sorted = [int(i) for i in excluded]
+    sorted.sort()
+    if sorted == [2, 3, 4, 5, 6, 7]:
         if (type(question) is TownQuestion) and (question.type == 1):
             return getQuestion(choice, excluded, last_twenty)
         elif (type(question) is PokemonQuestion) and (question.type == 2):

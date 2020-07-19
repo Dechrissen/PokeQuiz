@@ -101,30 +101,18 @@ def settings():
     print("5 - Quit\n")
     user_input = input("> ").strip()
     if user_input == '1':
-        print("Enter an upper limit for Generation to restrict questions: (1 - 7)")
-        gen = input("> ").strip()
-        if gen == '1':
-            excluded = ['2','3','4','5','6','7']
-            print("Generation 2 - 7 questions will be excluded.")
-        elif gen == '2':
-            excluded = ['3','4','5','6','7']
-            print("Generation 3 - 7 questions will be excluded.")
-        elif gen == '3':
-            excluded = ['4','5','6','7']
-            print("Generation 4 - 7 questions will be excluded.")
-        elif gen == '4':
-            excluded = ['5','6','7']
-            print("Generation 5 - 7 questions will be excluded.")
-        elif gen == '5':
-            excluded = ['6','7']
-            print("Generation 6 - 7 questions will be excluded.")
-        elif gen == '6':
-            excluded = ['7']
-            print("Generation 7 questions will be excluded.")
-        elif gen == '7':
-            print("No Generations will be excluded.")
-        else:
-            print("Invalid input.")
+        invalid = False
+        print("Enter a space-separated list of generations to exclude from questions: (1 - 7)")
+        gens = input("> ").strip().split()
+        for g in gens:
+            if g not in ['1','2','3','4','5','6','7']:
+                print("Invalid input.")
+                invalid = True
+                break
+            else:
+                excluded.append(g)
+        if not invalid:
+            print("Generations that will be excluded:", ", ".join(excluded))
         print("Returning to main menu...\n")
         mainMenu()
     elif user_input == '2':
