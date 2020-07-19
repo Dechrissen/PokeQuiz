@@ -220,7 +220,7 @@ class GameQuestion:
         self.Q = types[n]
         self.A = None
 
-class seedQuestion:
+class SeedQuestion:
     def __init__(self, Q, A):
         self.Q = Q
         self.A = A

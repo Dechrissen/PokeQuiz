@@ -152,7 +152,7 @@ def quiz():
         print("Let's go!\n")
         for i in range(limit):
             if seed:
-                question = seedQuestion(*seed_quiz[str(i + 1)])
+                question = SeedQuestion(*seed_quiz[str(i + 1)])
             else:
                 question = getQuestion(choice, excluded, last_twenty)
             print('#' + (str(i + 1)) + ': ' + question.Q)
