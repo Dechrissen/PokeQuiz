@@ -222,5 +222,15 @@ class GameQuestion:
 
 class SeedQuestion:
     def __init__(self, Q, A):
+        typelist = ['Normal', 'Fire', 'Fighting', 'Water', 'Flying', 'Grass', 'Poison', 'Electric', 'Ground',
+        'Psychic', 'Rock', 'Ice', 'Bug', 'Dragon', 'Ghost', 'Dark', 'Steel', 'Fairy']
+
+        # Initialize object variables
+        self.type = None
+        # Set type to 4 if the answer contains an item in typelist so that answerCheck will correctly catch this as a special case
+        if type(A) is list:
+            if len(A) > 0:
+                if A[0] in typelist:
+                    self.type = 4
         self.Q = Q
         self.A = A

@@ -1,7 +1,7 @@
 # PokeQuiz
-
+*Current version: 1.1.2*  
 PokeQuiz is a command line studying tool that allows you to test your knowledge by answering randomly-generated Pokemon questions. Currently, data from generations 1 – 7 is included, but I do have plans to add generation 8 and *possibly* side-games such as Colosseum and XD Gale of Darkness in later releases.  
-  
+
 PokeQuiz ships with a lightweight SQLite database containing information on:
 - Pokemon
 - Regions (Kanto, Johto, etc.)
@@ -26,7 +26,7 @@ To install using git, run:
 
 ## Usage
 Installing PokeQuiz will add an entry point to your PATH named `pokequiz`.  
-  
+
 To run PokeQuiz from your terminal, simply run:
 ```cmd
 > pokequiz
@@ -91,5 +91,5 @@ Who is the professor in Kalos?
 
 ### Seeds
 PokeQuiz supports set quiz seeds to generate identical quizzes in order to challenge others and compare scores. All seeds will invoke a 20-question quiz with no restriction on Pokemon generation or question type.  
-  
+
 Currently supported seeds: 1-100

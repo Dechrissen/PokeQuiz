@@ -329,7 +329,7 @@ def answerCheck(question, input):
         quit()
 
     # First do a check for the question "What type is {X Pokemon}?" because it's a special case
-    elif type(question) is PokemonQuestion and question.type == 4:
+    elif (type(question) is PokemonQuestion or type(question) is SeedQuestion) and question.type == 4:
         # Check if nothing was entered
         if input == '':
             return ' '.join(question.A)
