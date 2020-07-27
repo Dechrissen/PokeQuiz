@@ -12,3 +12,6 @@
 - add trial captains from alola
 - add gen 8 data
 - add spin-off game region data (colo, XD)
+- move questions
+- starter pokemon questions
+- version exclusives questions?
