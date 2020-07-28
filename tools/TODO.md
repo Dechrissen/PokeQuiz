@@ -15,3 +15,5 @@
 - move questions
 - starter pokemon questions
 - version exclusives questions?
+- change Victory Road as landmark in Kanto
+- Elite 4 questions
