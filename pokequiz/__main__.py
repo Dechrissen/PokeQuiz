@@ -102,7 +102,7 @@ def settings():
     user_input = input("> ").strip()
     if user_input == '1':
         invalid = False
-        print("Enter a space-separated list of generations to exclude from questions: (1 - 7)")
+        print("Enter a space-separated list of generations to exclude from questions (1 - 7):")
         gens = input("> ").strip().split()
         for g in gens:
             if g not in ['1','2','3','4','5','6','7']:

@@ -1,5 +1,6 @@
 # PokeQuiz
 *Current version: 1.1.2*  
+
 PokeQuiz is a command line studying tool that allows you to test your knowledge by answering randomly-generated Pokemon questions. Currently, data from generations 1 – 7 is included, but I do have plans to add generation 8 and *possibly* side-games such as Colosseum and XD Gale of Darkness in later releases.  
 
 PokeQuiz ships with a lightweight SQLite database containing information on:
@@ -13,12 +14,12 @@ PokeQuiz ships with a lightweight SQLite database containing information on:
 
 
 ## Installation
-To install via pip, go to your terminal and run:
+To install via pip:
 ```cmd
 > pip install pokequiz
 ```
 
-To install using git, run:
+To install using git:
 ```cmd
 > git clone https://github.com/Dechrissen/PokeQuiz.git
 > cd pokequiz && pip install -U .
